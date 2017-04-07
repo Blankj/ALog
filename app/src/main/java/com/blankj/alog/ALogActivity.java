@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.blankj.aloglibrary.ALog;
 
+
 /**
  * <pre>
  *     author: Blankj
