@@ -1,5 +1,7 @@
 # ALog
 
+[![ALog][alogsvg]][alog]
+
 ## Functions
 
 * 可设置Log开启和关闭
@@ -25,15 +27,15 @@
 compile 'com.blankj:alog:0.0.1'
 ```
 
-或者下载如下jar包
-
- [ ![Download](https://img.shields.io/badge/download-4k-brightgreen.svg) ](https://jcenter.bintray.com/com/blankj/alog/0.0.1/alog-0.0.1-sources.jar)
+or [![Download][jarsvg]][jar]
 
 
 ## Usage
 
+### 初始化
+
 在Application的`onCreate`函数中初始化，如下
-```
+``` java
 @Override
 public void onCreate() {
     super.onCreate();
@@ -42,7 +44,7 @@ public void onCreate() {
 ```
 
 当然，ALog还支持多参数配置，具体如下
-```
+``` java
 new ALog.Builder(this)
         .setLogSwitch(BuildConfig.DEBUG)// 设置log总开关，默认开
         .setGlobalTag("")// 设置log全局标签，默认为空
@@ -55,25 +57,66 @@ new ALog.Builder(this)
 ```
 
 
+### 默认初始化下的图例
+
+* `ALog.d("debug");`
+
+![detail][detail]
+
+* `ALog.d("customTag", "debug0", "debug1");`
+
+![args][args]
+
+* `ALog.d(longStr);`
+
+![long][long]
+
+* `ALog.file(longStr);`
+
+![file][file]
+
+* `ALog.json(json);`
+
+![json][json]
+
+* `ALog.xml(xml);`
+
+![xml][xml]
+
+
+更多使用请运行demo来查看。
 
 
 
+## Contact
 
+[![jianshu][jianshusvg]][jianshu] [![weibo][weibosvg]][weibo]  [![Blog][blogsvg]][blog] [![QQ0Group][qq0groupsvg]][qq0group] [![QQ1Group][qq1groupsvg]][qq1group]
 
 ## License
 
-```
-Copyright [2017] [Blankj]
+[![License][licensesvg]][license]
 
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
 
-  http://www.apache.org/licenses/LICENSE-2.0
 
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-```
+[alogsvg]: https://img.shields.io/badge/ALog-v0.0.1-blue.svg
+[alog]: https://github.com/Blankj/ALog
+[jarsvg]: https://img.shields.io/badge/download-jar--4Kb-brightgreen.svg
+[jar]: https://jcenter.bintray.com/com/blankj/alog/0.0.1/alog-0.0.1-sources.jar
+[detail]: https://raw.githubusercontent.com/Blankj/ALog/master/img/detail.png
+[args]: https://raw.githubusercontent.com/Blankj/ALog/master/img/args.png
+[long]: https://raw.githubusercontent.com/Blankj/ALog/master/img/long.png
+[file]: https://raw.githubusercontent.com/Blankj/ALog/master/img/file.png
+[json]: https://raw.githubusercontent.com/Blankj/ALog/master/img/json.png
+[xml]: https://raw.githubusercontent.com/Blankj/ALog/master/img/xml.png
+[jianshusvg]: https://img.shields.io/badge/简书-Blankj-brightgreen.svg
+[jianshu]: http://www.jianshu.com/u/46702d5c6978
+[weibosvg]: https://img.shields.io/badge/weibo-__Blankj-brightgreen.svg
+[weibo]: http://weibo.com/3076228982
+[blogsvg]: https://img.shields.io/badge/Blog-Blankj-brightgreen.svg
+[blog]: http://blankj.com
+[qq0groupsvg]: https://img.shields.io/badge/QQ0群(满)-74721490-fba7f9.svg
+[qq0group]: https://shang.qq.com/wpa/qunwpa?idkey=62baf2c3ec6b0863155b0c7a10c71bba2608cb0b6532fc18515835e54c69bdd3
+[qq1groupsvg]: https://img.shields.io/badge/QQ1群-25206533-fba7f9.svg
+[qq1group]: https://shang.qq.com/wpa/qunwpa?idkey=d906789f84484465e2736f7b524366b4c23afeda38733d5c7b10fc3f6e406e9b
+[licensesvg]: https://img.shields.io/badge/License-Apache--2.0-blue.svg
+[license]: https://opensource.org/licenses/apache2.0.php
