@@ -21,6 +21,27 @@
 * jar包不足5Kb
 
 
+## ALogApi [ALog.java][alog.java]→[Demo][alog.demo]
+```
+Builder.setLogSwitch     : 设置log总开关
+Builder.setGlobalTag     : 设置log全局tag
+Builder.setLogHeadSwitch : 设置log头开关
+Builder.setLog2FileSwitch: 设置log文件开关
+Builder.setBorderSwitch  : 设置log边框开关
+Builder.setLogFilter     : 设置log过滤器
+
+v   : Verbose日志
+d   : Debug日志
+i   : Info日志
+w   : Warn日志
+e   : Error日志
+a   : Assert日志
+file: log到文件
+json: log字符串之json
+xml : log字符串之xml
+```
+
+
 ## How to use
 
 ``` groovy
@@ -102,6 +123,8 @@ new ALog.Builder(this)
 
 [alogsvg]: https://img.shields.io/badge/ALog-v0.0.2-blue.svg
 [alog]: https://github.com/Blankj/ALog
+[alog.java]: https://github.com/Blankj/ALog/blob/master/alog/src/main/java/com/blankj/ALog.java
+[alog.demo]: https://github.com/Blankj/ALog/blob/master/app/src/main/java/com/blankj/alog/ALogActivity.java
 [jarsvg]: https://img.shields.io/badge/download-jar--4Kb-brightgreen.svg
 [jar]: https://jcenter.bintray.com/com/blankj/alog/0.0.2/alog-0.0.2-sources.jar
 [detail]: https://raw.githubusercontent.com/Blankj/ALog/master/img/detail.png

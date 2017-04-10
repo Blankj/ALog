@@ -36,14 +36,10 @@ import javax.xml.transform.stream.StreamSource;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/9/21
- *     desc  : 只有一个类的轻量级Log库
+ *     desc  : 一个精简、全面、方便的AndroidLog库
  * </pre>
  */
 public final class ALog {
-
-    private ALog() {
-        throw new UnsupportedOperationException("u can't instantiate me...");
-    }
 
     public static final int V = 0x01;
     public static final int D = 0x02;
@@ -82,6 +78,9 @@ public final class ALog {
     private static final String NULL      = "null";
     private static final String ARGS      = "args";
 
+    private ALog() {
+        throw new UnsupportedOperationException("u can't instantiate me...");
+    }
 
     public static class Builder {
 
