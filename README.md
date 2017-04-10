@@ -22,6 +22,7 @@
 
 
 ## ALogApi [ALog.java][alog.java]→[Demo][alog.demo]
+
 ```
 Builder.setLogSwitch     : 设置log总开关
 Builder.setGlobalTag     : 设置log全局tag
@@ -44,11 +45,7 @@ xml : log字符串之xml
 
 ## How to use
 
-``` groovy
-compile 'com.blankj:alog:0.0.2'
-```
-
-or [![Download][jarsvg]][jar]
+`compile 'com.blankj:alog:0.0.2'` or [![Download][jarsvg]][jar]
 
 
 ## Usage
@@ -56,6 +53,7 @@ or [![Download][jarsvg]][jar]
 ### 初始化
 
 在Application的`onCreate`函数中初始化，如下
+
 ``` java
 @Override
 public void onCreate() {
@@ -65,6 +63,7 @@ public void onCreate() {
 ```
 
 当然，ALog还支持多参数配置，具体如下
+
 ``` java
 new ALog.Builder(this)
         .setLogSwitch(BuildConfig.DEBUG)// 设置log总开关，默认开
@@ -115,9 +114,11 @@ new ALog.Builder(this)
 
 [![jianshu][jianshusvg]][jianshu] [![weibo][weibosvg]][weibo]  [![Blog][blogsvg]][blog] [![QQ0Group][qq0groupsvg]][qq0group] [![QQ1Group][qq1groupsvg]][qq1group]
 
+
 ## License
 
 [![License][licensesvg]][license]
+
 
 
 
