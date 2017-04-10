@@ -21,7 +21,7 @@
 * jar包不足5Kb
 
 
-## ALogApi [ALog.java][alog.java]→[Demo][alog.demo]
+## API→[ALog.java][alog.java]→[Demo][alog.demo]
 
 ```
 Builder.setLogSwitch     : 设置log总开关
