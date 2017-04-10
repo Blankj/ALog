@@ -19,6 +19,6 @@ android {
 }
 
 dependencies {
-    compile rootProject.deps.appcompatv7
+    compile deps.appcompatv7
     compile project(path: ':alog')
 }
