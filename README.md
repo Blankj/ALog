@@ -24,7 +24,7 @@
 ## How to use
 
 ``` groovy
-compile 'com.blankj:alog:0.0.1'
+compile 'com.blankj:alog:0.0.2'
 ```
 
 or [![Download][jarsvg]][jar]
@@ -98,10 +98,10 @@ new ALog.Builder(this)
 
 
 
-[alogsvg]: https://img.shields.io/badge/ALog-v0.0.1-blue.svg
+[alogsvg]: https://img.shields.io/badge/ALog-v0.0.2-blue.svg
 [alog]: https://github.com/Blankj/ALog
 [jarsvg]: https://img.shields.io/badge/download-jar--4Kb-brightgreen.svg
-[jar]: https://jcenter.bintray.com/com/blankj/alog/0.0.1/alog-0.0.1-sources.jar
+[jar]: https://jcenter.bintray.com/com/blankj/alog/0.0.2/alog-0.0.2-sources.jar
 [detail]: https://raw.githubusercontent.com/Blankj/ALog/master/img/detail.png
 [args]: https://raw.githubusercontent.com/Blankj/ALog/master/img/args.png
 [long]: https://raw.githubusercontent.com/Blankj/ALog/master/img/long.png

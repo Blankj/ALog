@@ -1,4 +1,4 @@
-package com.blankj.aloglibrary;
+package com.blankj;
 
 import android.content.Context;
 import android.os.Environment;
@@ -21,6 +21,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Formatter;
 import java.util.Locale;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Source;
@@ -53,13 +55,15 @@ public final class ALog {
     @IntDef({V, D, I, W, E, A})
     @Retention(RetentionPolicy.SOURCE)
     public @interface TYPE {
+
     }
 
     private static final int FILE = 0xF1;
     private static final int JSON = 0xF2;
     private static final int XML  = 0xF4;
+    private static String          dir;// log存储目录
+    private static ExecutorService executor;
 
-    private static String dir;                      // log存储目录
     private static boolean sLogSwitch       = true; // log总开关，默认开
     private static String  sGlobalTag       = null; // log标签
     private static boolean sTagIsSpace      = true; // log标签是否为空白
@@ -72,18 +76,20 @@ public final class ALog {
     private static final String LEFT_BORDER    = "║ ";
     private static final String BOTTOM_BORDER  = "╚═══════════════════════════════════════════════════════════════════════════════════════════════════";
     private static final String LINE_SEPARATOR = System.getProperty("line.separator");
+    private static final int    MAX_LEN        = 4000;
 
-    private static final int    MAX_LEN   = 4000;
     private static final String NULL_TIPS = "Log with null object.";
     private static final String NULL      = "null";
     private static final String ARGS      = "args";
 
+
     public static class Builder {
 
         public Builder(Context context) {
-            if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
+            if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())
+                    && context.getExternalCacheDir() != null)
                 dir = context.getExternalCacheDir() + File.separator + "log" + File.separator;
-            } else {
+            else {
                 dir = context.getCacheDir() + File.separator + "log" + File.separator;
             }
         }
@@ -360,7 +366,7 @@ public final class ALog {
         }
     }
 
-    private synchronized static void print2File(final String tag, final String msg) {
+    private static void print2File(final String tag, final String msg) {
         Date now = new Date();
         String date = new SimpleDateFormat("MM-dd", Locale.getDefault()).format(now);
         final String fullPath = dir + date + ".txt";
@@ -370,16 +376,27 @@ public final class ALog {
         }
         String time = new SimpleDateFormat("MM-dd HH:mm:ss.SSS ", Locale.getDefault()).format(now);
         StringBuilder sb = new StringBuilder();
-        if (sLogBorderSwitch) sb.append(TOP_BORDER).append(LINE_SEPARATOR);
-        sb.append(time)
-                .append(tag)
-                .append(": ")
-                .append(msg)
-                .append(LINE_SEPARATOR)
-                .append(LINE_SEPARATOR);
-        if (sLogBorderSwitch) sb.append(BOTTOM_BORDER).append(LINE_SEPARATOR);
+        if (sLogBorderSwitch) {
+            sb.append(TOP_BORDER).append(LINE_SEPARATOR);
+            sb.append(LEFT_BORDER)
+                    .append(time)
+                    .append(tag)
+                    .append(LINE_SEPARATOR)
+                    .append(msg);
+            sb.append(BOTTOM_BORDER).append(LINE_SEPARATOR);
+        } else {
+            sb.append(time)
+                    .append(tag)
+                    .append(LINE_SEPARATOR)
+                    .append(msg)
+                    .append(LINE_SEPARATOR);
+        }
+        sb.append(LINE_SEPARATOR);
         final String dateLogContent = sb.toString();
-        new Thread(new Runnable() {
+        if (executor == null) {
+            executor = Executors.newSingleThreadExecutor();
+        }
+        executor.execute(new Runnable() {
             @Override
             public void run() {
                 BufferedWriter bw = null;
@@ -400,7 +417,7 @@ public final class ALog {
                     }
                 }
             }
-        }).start();
+        });
     }
 
     private static boolean createOrExistsFile(String filePath) {

@@ -11,7 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.blankj.aloglibrary.ALog;
+import com.blankj.ALog;
 
 
 /**
@@ -56,7 +56,9 @@ public class ALogActivity extends AppCompatActivity
     };
 
     private static final String longStr;
-    private static final String otherStr;
+    private static final String otherStr0;
+    private static final String otherStr1;
+    private static final String otherStr2;
 
     private String json = "{\"tools\": [{ \"name\":\"css format\" , \"site\":\"http://tools.w3cschool.cn/code/css\" },{ \"name\":\"json format\" , \"site\":\"http://tools.w3cschool.cn/code/json\" },{ \"name\":\"pwd check\" , \"site\":\"http://tools.w3cschool.cn/password/my_password_safe\" }]}";
     private String xml  = "<books><book><author>Jack Herrington</author><title>PHP Hacks</title><publisher>O'Reilly</publisher></book><book><author>Jack Herrington</author><title>Podcasting Hacks</title><publisher>O'Reilly</publisher></book></books>";
@@ -72,12 +74,21 @@ public class ALogActivity extends AppCompatActivity
 
         sb = new StringBuilder();
         for (int i = 0; i < 8000; ++i) {
-            sb.append("111111");
+            sb.append("00000");
         }
-        sb.append("\"");
-        otherStr = sb.toString();
+        otherStr0 = sb.toString();
 
+        sb = new StringBuilder();
+        for (int i = 0; i < 8000; ++i) {
+            sb.append("11111");
+        }
+        otherStr1 = sb.toString();
 
+        sb = new StringBuilder();
+        for (int i = 0; i < 8000; ++i) {
+            sb.append("22222");
+        }
+        otherStr2 = sb.toString();
     }
 
     @Override
@@ -167,9 +178,12 @@ public class ALogActivity extends AppCompatActivity
                 ALog.d(longStr);
                 break;
             case R.id.btn_log_file:
-                ALog.file(otherStr);
-                ALog.file(longStr);
-                ALog.file(otherStr);
+                ALog.file(otherStr0);
+                ALog.file(otherStr1);
+                ALog.file(otherStr2);
+                ALog.file(otherStr0);
+                ALog.file(otherStr1);
+                ALog.file(otherStr2);
                 break;
             case R.id.btn_log_json:
                 ALog.json(json);
@@ -219,7 +233,6 @@ public class ALogActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         switch (item.getItemId()) {
             case R.id.action_git_hub:
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/Blankj/ALog")));
@@ -228,7 +241,6 @@ public class ALogActivity extends AppCompatActivity
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.jianshu.com/u/46702d5c6978")));
                 break;
         }
-
         return super.onOptionsItemSelected(item);
     }
 }
