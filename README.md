@@ -75,6 +75,8 @@ new ALog.Builder(this)
 
 ![file][file]
 
+![filecontent][filecontent]
+
 * `ALog.json(json);`
 
 ![json][json]
@@ -106,6 +108,7 @@ new ALog.Builder(this)
 [args]: https://raw.githubusercontent.com/Blankj/ALog/master/img/args.png
 [long]: https://raw.githubusercontent.com/Blankj/ALog/master/img/long.png
 [file]: https://raw.githubusercontent.com/Blankj/ALog/master/img/file.png
+[filecontent]: https://raw.githubusercontent.com/Blankj/ALog/master/img/filecontent.png
 [json]: https://raw.githubusercontent.com/Blankj/ALog/master/img/json.png
 [xml]: https://raw.githubusercontent.com/Blankj/ALog/master/img/xml.png
 [jianshusvg]: https://img.shields.io/badge/简书-Blankj-brightgreen.svg

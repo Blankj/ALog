@@ -56,9 +56,6 @@ public class ALogActivity extends AppCompatActivity
     };
 
     private static final String longStr;
-    private static final String otherStr0;
-    private static final String otherStr1;
-    private static final String otherStr2;
 
     private String json = "{\"tools\": [{ \"name\":\"css format\" , \"site\":\"http://tools.w3cschool.cn/code/css\" },{ \"name\":\"json format\" , \"site\":\"http://tools.w3cschool.cn/code/json\" },{ \"name\":\"pwd check\" , \"site\":\"http://tools.w3cschool.cn/password/my_password_safe\" }]}";
     private String xml  = "<books><book><author>Jack Herrington</author><title>PHP Hacks</title><publisher>O'Reilly</publisher></book><book><author>Jack Herrington</author><title>Podcasting Hacks</title><publisher>O'Reilly</publisher></book></books>";
@@ -71,24 +68,6 @@ public class ALogActivity extends AppCompatActivity
         }
         sb.append("\"");
         longStr = sb.toString();
-
-        sb = new StringBuilder();
-        for (int i = 0; i < 8000; ++i) {
-            sb.append("00000");
-        }
-        otherStr0 = sb.toString();
-
-        sb = new StringBuilder();
-        for (int i = 0; i < 8000; ++i) {
-            sb.append("11111");
-        }
-        otherStr1 = sb.toString();
-
-        sb = new StringBuilder();
-        for (int i = 0; i < 8000; ++i) {
-            sb.append("22222");
-        }
-        otherStr2 = sb.toString();
     }
 
     @Override
@@ -178,12 +157,9 @@ public class ALogActivity extends AppCompatActivity
                 ALog.d(longStr);
                 break;
             case R.id.btn_log_file:
-                ALog.file(otherStr0);
-                ALog.file(otherStr1);
-                ALog.file(otherStr2);
-                ALog.file(otherStr0);
-                ALog.file(otherStr1);
-                ALog.file(otherStr2);
+                ALog.file("test0 log to file");
+                ALog.file("test1 log to file");
+                ALog.file("test2 log to file");
                 break;
             case R.id.btn_log_json:
                 ALog.json(json);
