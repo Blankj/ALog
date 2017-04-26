@@ -130,6 +130,10 @@ public final class ALog {
         }
     }
 
+    public static Builder getBuilder(Context context){
+        return new Builder(context);
+    }
+
     public static void v(Object contents) {
         log(V, sGlobalTag, contents);
     }
@@ -284,10 +288,12 @@ public final class ALog {
         String msg = head + body;
         if (sLogBorderSwitch) {
             StringBuilder sb = new StringBuilder();
+            sb.append(TOP_BORDER).append(LINE_SEPARATOR);
             String[] lines = msg.split(LINE_SEPARATOR);
             for (String line : lines) {
                 sb.append(LEFT_BORDER).append(line).append(LINE_SEPARATOR);
             }
+            sb.append(BOTTOM_BORDER).append(LINE_SEPARATOR);
             msg = sb.toString();
         }
         return new String[]{tag, msg};
@@ -322,7 +328,6 @@ public final class ALog {
     }
 
     private static void printLog(int type, String tag, String msg) {
-        if (sLogBorderSwitch) print(type, tag, TOP_BORDER);
         int len = msg.length();
         int countOfSub = len / MAX_LEN;
         if (countOfSub > 0) {
@@ -339,7 +344,6 @@ public final class ALog {
         } else {
             print(type, tag, msg);
         }
-        if (sLogBorderSwitch) print(type, tag, BOTTOM_BORDER);
     }
 
     private static void print(final int type, final String tag, String msg) {
