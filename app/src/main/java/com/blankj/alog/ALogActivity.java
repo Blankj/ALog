@@ -1,13 +1,8 @@
 package com.blankj.alog;
 
-import android.content.Intent;
-import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -27,21 +22,23 @@ public class ALogActivity extends AppCompatActivity
 
     private static final String TAG = "CMJ";
 
-    private ALog.Builder mBuilder;
-
     private TextView tvAboutLog;
 
+    private ALog.Builder mBuilder = new ALog.Builder(ALogApp.getInstance());
+
+    private String  dir       = "";
     private String  globalTag = "";
     private boolean head      = true;
     private boolean file      = false;
     private boolean border    = true;
     private int     filter    = ALog.V;
 
-    private static final int UPDATE_TAG    = 0x01 << 0;
+    private static final int UPDATE_TAG    = 0x01;
     private static final int UPDATE_HEAD   = 0x01 << 1;
     private static final int UPDATE_FILE   = 0x01 << 2;
-    private static final int UPDATE_BORDER = 0x01 << 3;
-    private static final int UPDATE_FILTER = 0x01 << 4;
+    private static final int UPDATE_DIR    = 0x01 << 3;
+    private static final int UPDATE_BORDER = 0x01 << 4;
+    private static final int UPDATE_FILTER = 0x01 << 5;
 
     private Runnable mRunnable = new Runnable() {
         @Override
@@ -57,9 +54,6 @@ public class ALogActivity extends AppCompatActivity
 
     private static final String longStr;
 
-    private String json = "{\"tools\": [{ \"name\":\"css format\" , \"site\":\"http://tools.w3cschool.cn/code/css\" },{ \"name\":\"json format\" , \"site\":\"http://tools.w3cschool.cn/code/json\" },{ \"name\":\"pwd check\" , \"site\":\"http://tools.w3cschool.cn/password/my_password_safe\" }]}";
-    private String xml  = "<books><book><author>Jack Herrington</author><title>PHP Hacks</title><publisher>O'Reilly</publisher></book><book><author>Jack Herrington</author><title>Podcasting Hacks</title><publisher>O'Reilly</publisher></book></books>";
-
     static {
         StringBuilder sb = new StringBuilder();
         sb.append("len = 10400\ncontent = \"");
@@ -74,17 +68,11 @@ public class ALogActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alog);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        if (toolbar != null) {
-            toolbar.setTitleTextColor(Color.WHITE);
-            setSupportActionBar(toolbar);
-        }
-
-        mBuilder = ALogApp.sBuilder;
         findViewById(R.id.btn_toggle_tag).setOnClickListener(this);
         findViewById(R.id.btn_toggle_head).setOnClickListener(this);
         findViewById(R.id.btn_toggle_border).setOnClickListener(this);
         findViewById(R.id.btn_toggle_file).setOnClickListener(this);
+        findViewById(R.id.btn_toggle_dir).setOnClickListener(this);
         findViewById(R.id.btn_toggle_filter).setOnClickListener(this);
         findViewById(R.id.btn_log_no_tag).setOnClickListener(this);
         findViewById(R.id.btn_log_with_tag).setOnClickListener(this);
@@ -110,6 +98,9 @@ public class ALogActivity extends AppCompatActivity
                 break;
             case R.id.btn_toggle_file:
                 updateAbout(UPDATE_FILE);
+                break;
+            case R.id.btn_toggle_dir:
+                updateAbout(UPDATE_DIR);
                 break;
             case R.id.btn_toggle_border:
                 updateAbout(UPDATE_BORDER);
@@ -157,14 +148,16 @@ public class ALogActivity extends AppCompatActivity
                 ALog.d(longStr);
                 break;
             case R.id.btn_log_file:
-                ALog.file("test0 log to file");
-                ALog.file("test1 log to file");
-                ALog.file("test2 log to file");
+                for (int i = 0; i < 1000; i++) {
+                    ALog.file("test0 log to file");
+                }
                 break;
             case R.id.btn_log_json:
+                String json = "{\"tools\": [{ \"name\":\"css format\" , \"site\":\"http://tools.w3cschool.cn/code/css\" },{ \"name\":\"json format\" , \"site\":\"http://tools.w3cschool.cn/code/json\" },{ \"name\":\"pwd check\" , \"site\":\"http://tools.w3cschool.cn/password/my_password_safe\" }]}";
                 ALog.json(json);
                 break;
             case R.id.btn_log_xml:
+                String xml = "<books><book><author>Jack Herrington</author><title>PHP Hacks</title><publisher>O'Reilly</publisher></book><book><author>Jack Herrington</author><title>Podcasting Hacks</title><publisher>O'Reilly</publisher></book></books>";
                 ALog.xml(xml);
                 break;
         }
@@ -181,6 +174,15 @@ public class ALogActivity extends AppCompatActivity
             case UPDATE_FILE:
                 file = !file;
                 break;
+            case UPDATE_DIR:
+                if (getDir().contains("test")) {
+                    dir = null;
+                } else {
+                    if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
+                        dir = Environment.getExternalStorageDirectory().getPath() + System.getProperty("file.separator") + "test";
+                    }
+                }
+                break;
             case UPDATE_BORDER:
                 border = !border;
                 break;
@@ -191,32 +193,19 @@ public class ALogActivity extends AppCompatActivity
         mBuilder.setGlobalTag(globalTag)
                 .setLogHeadSwitch(head)
                 .setLog2FileSwitch(file)
+                .setDir(dir)
                 .setBorderSwitch(border)
                 .setLogFilter(filter);
-        tvAboutLog.setText("tag: " + (globalTag.equals("") ? "null" : TAG)
-                + "\nhead: " + String.valueOf(head)
-                + "\nfile: " + String.valueOf(file)
-                + "\nborder: " + String.valueOf(border)
-                + "\nfilter: " + (filter == ALog.V ? "Verbose" : "Warn")
-        );
+        tvAboutLog.setText(mBuilder.toString());
+    }
+
+    private String getDir() {
+        return mBuilder.toString().split(System.getProperty("line.separator"))[4].substring(5);
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.about, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_git_hub:
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/Blankj/ALog")));
-                break;
-            case R.id.action_blog:
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.jianshu.com/u/46702d5c6978")));
-                break;
-        }
-        return super.onOptionsItemSelected(item);
+    protected void onDestroy() {
+        ALogApp.initLog();
+        super.onDestroy();
     }
 }

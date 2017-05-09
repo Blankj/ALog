@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -12,12 +12,13 @@
         <item name="actionMenuTextColor">@android:color/white</item>
     </style>
 
-    <style name="Font">
-        <item name="android:textSize">@dimen/font_normal</item>
+    <style name="TextStyle">
+        <item name="android:textSize">@dimen/font_26</item>
     </style>
 
-    <style name="BtnFont" parent="Font">
-        <item name="android:textAllCaps">false</item>
+    <style name="WideBtnStyle">
+        <item name="android:textAllCaps" tools:targetApi="ice_cream_sandwich">false</item>
+        <item name="android:textSize">@dimen/font_26</item>
     </style>
 
 </resources>

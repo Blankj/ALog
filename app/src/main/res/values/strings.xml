@@ -4,18 +4,19 @@
     <string name="git_hub">GitHub</string>
     <string name="blog">Blog</string>
 
-    <string name="log.toggle_tag">Toggle Tag</string>
-    <string name="log.toggle_head">Toggle Head</string>
-    <string name="log.toggle_border">Toggle Border</string>
-    <string name="log.toggle_filter">Toggle Filter</string>
-    <string name="log.toggle_file">Toggle File</string>
-    <string name="log.with_no_tag">Log With No Tag</string>
-    <string name="log.with_tag">Log With Tag</string>
-    <string name="log.in_new_thread">Log In New Thread</string>
-    <string name="log.null">Log Null</string>
-    <string name="log.many_params">Log Many Params</string>
-    <string name="log.long_string">Log Long String</string>
-    <string name="log.to_file">Log To File</string>
-    <string name="log.json">Log Json</string>
-    <string name="log.xml">Log Xml</string>
+    <string name="log_toggle_tag">Toggle Tag</string>
+    <string name="log_toggle_head">Toggle Head</string>
+    <string name="log_toggle_border">Toggle Border</string>
+    <string name="log_toggle_filter">Toggle Filter</string>
+    <string name="log_toggle_file">Toggle File</string>
+    <string name="log_toggle_dir">Toggle Dir</string>
+    <string name="log_with_no_tag">Log With No Tag</string>
+    <string name="log_with_tag">Log With Tag</string>
+    <string name="log_in_new_thread">Log In New Thread</string>
+    <string name="log_null">Log Null</string>
+    <string name="log_many_params">Log Many Params</string>
+    <string name="log_long_string">Log Long String</string>
+    <string name="log_to_file">Log To File</string>
+    <string name="log_json">Log Json</string>
+    <string name="log_xml">Log Xml</string>
 </resources>

@@ -1,6 +1,7 @@
 package com.blankj.alog;
 
 import android.app.Application;
+import android.content.Context;
 
 import com.blankj.ALog;
 
@@ -14,19 +15,30 @@ import com.blankj.ALog;
  */
 public class ALogApp extends Application {
 
-    public static ALog.Builder sBuilder;
+    private static ALogApp sInstance;
+
+    public static Context getInstance() {
+        return sInstance;
+    }
 
     @Override
     public void onCreate() {
         super.onCreate();
-        sBuilder = new ALog.Builder(this)
+        sInstance = this;
+        initLog();
+    }
+
+    public static void initLog() {
+        ALog.Builder builder = new ALog.Builder(sInstance)
                 .setLogSwitch(BuildConfig.DEBUG)// 设置log总开关，默认开
-                .setGlobalTag("")// 设置log全局标签，默认为空
+                .setGlobalTag(null)// 设置log全局标签，默认为空
                 // 当全局标签不为空时，我们输出的log全部为该tag，
                 // 为空时，如果传入的tag为空那就显示类名，否则显示tag
-                .setLogHeadSwitch(true)// 设置log头部是否显示，默认显示
+                .setLogHeadSwitch(true)// 设置log头信息开关，默认为开
                 .setLog2FileSwitch(false)// 打印log时是否存到文件的开关，默认关
+                .setDir("")// 当自定义路径为空时，写入应用的/cache/log/目录中
                 .setBorderSwitch(true)// 输出日志是否带边框开关，默认开
                 .setLogFilter(ALog.V);// log过滤器，和logcat过滤器同理，默认Verbose
+        ALog.d(builder.toString());
     }
 }
