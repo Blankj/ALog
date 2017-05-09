@@ -29,9 +29,9 @@ Builder.setLogSwitch     : 设置log总开关
 Builder.setGlobalTag     : 设置log全局tag
 Builder.setLogHeadSwitch : 设置log头开关
 Builder.setLog2FileSwitch: 设置log文件开关
+Builder.setDir           : 设置log文件存储目录
 Builder.setBorderSwitch  : 设置log边框开关
 Builder.setLogFilter     : 设置log过滤器
-
 v   : Verbose日志
 d   : Debug日志
 i   : Info日志
