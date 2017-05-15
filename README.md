@@ -119,17 +119,17 @@ new ALog.Builder(sInstance)
 
 
 
-[alogsvg]: https://img.shields.io/badge/ALog-v1.0.0-blue.svg
+[alogsvg]: https://img.shields.io/badge/ALog-v1.0.0-brightgreen.svg
 [alog]: https://github.com/Blankj/ALog
 
-[apisvg]: https://img.shields.io/badge/API-11+-blue.svg
+[apisvg]: https://img.shields.io/badge/API-11+-brightgreen.svg
 [api]: https://android-arsenal.com/api?level=11
 
 [buildsvg]: https://travis-ci.org/Blankj/ALog.svg?branch=master
 [build]: https://travis-ci.org/Blankj/ALog
 
-[licensesvg]: https://img.shields.io/badge/License-Apache--2.0-blue.svg
-[license]: https://opensource.org/licenses/apache2.0.php
+[licensesvg]: https://img.shields.io/badge/License-Apache--2.0-brightgreen.svg
+[license]: https://github.com/Blankj/ALog/blob/master/LICENSE
 
 [alog.java]: https://github.com/Blankj/ALog/blob/master/alog/src/main/java/com/blankj/ALog.java
 [alog.demo]: https://github.com/Blankj/ALog/blob/master/app/src/main/java/com/blankj/alog/ALogActivity.java
