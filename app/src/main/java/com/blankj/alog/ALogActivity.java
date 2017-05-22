@@ -24,21 +24,27 @@ public class ALogActivity extends AppCompatActivity
 
     private TextView tvAboutLog;
 
-    private ALog.Builder mBuilder = new ALog.Builder(ALogApp.getInstance());
+    private ALog.Builder mBuilder = new ALog.Builder(this);
 
-    private String  dir       = "";
-    private String  globalTag = "";
-    private boolean head      = true;
-    private boolean file      = false;
-    private boolean border    = true;
-    private int     filter    = ALog.V;
+    private String  dir           = "";
+    private String  globalTag     = "";
+    private boolean log           = true;
+    private boolean console       = true;
+    private boolean head          = true;
+    private boolean file          = false;
+    private boolean border        = true;
+    private int     consoleFilter = ALog.V;
+    private int     fileFilter    = ALog.V;
 
-    private static final int UPDATE_TAG    = 0x01;
-    private static final int UPDATE_HEAD   = 0x01 << 1;
-    private static final int UPDATE_FILE   = 0x01 << 2;
-    private static final int UPDATE_DIR    = 0x01 << 3;
-    private static final int UPDATE_BORDER = 0x01 << 4;
-    private static final int UPDATE_FILTER = 0x01 << 5;
+    private static final int UPDATE_LOG            = 0x01;
+    private static final int UPDATE_CONSOLE        = 0x01 << 1;
+    private static final int UPDATE_TAG            = 0x01 << 2;
+    private static final int UPDATE_HEAD           = 0x01 << 3;
+    private static final int UPDATE_FILE           = 0x01 << 4;
+    private static final int UPDATE_DIR            = 0x01 << 5;
+    private static final int UPDATE_BORDER         = 0x01 << 6;
+    private static final int UPDATE_CONSOLE_FILTER = 0x01 << 7;
+    private static final int UPDATE_FILE_FILTER    = 0x01 << 8;
 
     private Runnable mRunnable = new Runnable() {
         @Override
@@ -68,12 +74,15 @@ public class ALogActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alog);
+        findViewById(R.id.btn_toggle_log).setOnClickListener(this);
+        findViewById(R.id.btn_toggle_console).setOnClickListener(this);
         findViewById(R.id.btn_toggle_tag).setOnClickListener(this);
         findViewById(R.id.btn_toggle_head).setOnClickListener(this);
         findViewById(R.id.btn_toggle_border).setOnClickListener(this);
         findViewById(R.id.btn_toggle_file).setOnClickListener(this);
         findViewById(R.id.btn_toggle_dir).setOnClickListener(this);
-        findViewById(R.id.btn_toggle_filter).setOnClickListener(this);
+        findViewById(R.id.btn_toggle_conole_filter).setOnClickListener(this);
+        findViewById(R.id.btn_toggle_file_filter).setOnClickListener(this);
         findViewById(R.id.btn_log_no_tag).setOnClickListener(this);
         findViewById(R.id.btn_log_with_tag).setOnClickListener(this);
         findViewById(R.id.btn_log_in_new_thread).setOnClickListener(this);
@@ -90,6 +99,12 @@ public class ALogActivity extends AppCompatActivity
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.btn_toggle_log:
+                updateAbout(UPDATE_LOG);
+                break;
+            case R.id.btn_toggle_console:
+                updateAbout(UPDATE_CONSOLE);
+                break;
             case R.id.btn_toggle_tag:
                 updateAbout(UPDATE_TAG);
                 break;
@@ -105,8 +120,11 @@ public class ALogActivity extends AppCompatActivity
             case R.id.btn_toggle_border:
                 updateAbout(UPDATE_BORDER);
                 break;
-            case R.id.btn_toggle_filter:
-                updateAbout(UPDATE_FILTER);
+            case R.id.btn_toggle_conole_filter:
+                updateAbout(UPDATE_CONSOLE_FILTER);
+                break;
+            case R.id.btn_toggle_file_filter:
+                updateAbout(UPDATE_FILE_FILTER);
                 break;
             case R.id.btn_log_no_tag:
                 ALog.v("verbose");
@@ -148,23 +166,32 @@ public class ALogActivity extends AppCompatActivity
                 ALog.d(longStr);
                 break;
             case R.id.btn_log_file:
-                for (int i = 0; i < 1000; i++) {
+                for (int i = 0; i < 100; i++) {
                     ALog.file("test0 log to file");
+                    ALog.file(ALog.I, "test0 log to file");
                 }
                 break;
             case R.id.btn_log_json:
                 String json = "{\"tools\": [{ \"name\":\"css format\" , \"site\":\"http://tools.w3cschool.cn/code/css\" },{ \"name\":\"json format\" , \"site\":\"http://tools.w3cschool.cn/code/json\" },{ \"name\":\"pwd check\" , \"site\":\"http://tools.w3cschool.cn/password/my_password_safe\" }]}";
                 ALog.json(json);
+                ALog.json(ALog.I, json);
                 break;
             case R.id.btn_log_xml:
                 String xml = "<books><book><author>Jack Herrington</author><title>PHP Hacks</title><publisher>O'Reilly</publisher></book><book><author>Jack Herrington</author><title>Podcasting Hacks</title><publisher>O'Reilly</publisher></book></books>";
                 ALog.xml(xml);
+                ALog.xml(ALog.I, xml);
                 break;
         }
     }
 
     private void updateAbout(int args) {
         switch (args) {
+            case UPDATE_LOG:
+                log = !log;
+                break;
+            case UPDATE_CONSOLE:
+                console = !console;
+                break;
             case UPDATE_TAG:
                 globalTag = globalTag.equals(TAG) ? "" : TAG;
                 break;
@@ -186,21 +213,26 @@ public class ALogActivity extends AppCompatActivity
             case UPDATE_BORDER:
                 border = !border;
                 break;
-            case UPDATE_FILTER:
-                filter = filter == ALog.V ? ALog.W : ALog.V;
+            case UPDATE_CONSOLE_FILTER:
+                consoleFilter = consoleFilter == ALog.V ? ALog.W : ALog.V;
+                break;
+            case UPDATE_FILE_FILTER:
+                fileFilter = fileFilter == ALog.V ? ALog.I : ALog.V;
                 break;
         }
-        mBuilder.setGlobalTag(globalTag)
+        mBuilder.setLogSwitch(log)
+                .setConsoleSwitch(console)
+                .setGlobalTag(globalTag)
                 .setLogHeadSwitch(head)
                 .setLog2FileSwitch(file)
                 .setDir(dir)
                 .setBorderSwitch(border)
-                .setLogFilter(filter);
+                .setConsoleFilter(consoleFilter)
+                .setFileFilter(fileFilter);
         tvAboutLog.setText(mBuilder.toString());
     }
-
     private String getDir() {
-        return mBuilder.toString().split(System.getProperty("line.separator"))[4].substring(5);
+        return mBuilder.toString().split(System.getProperty("line.separator"))[5].substring(5);
     }
 
     @Override
