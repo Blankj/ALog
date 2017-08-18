@@ -24,7 +24,7 @@ public class ALogActivity extends AppCompatActivity
 
     private TextView tvAboutLog;
 
-    private ALog.Builder mBuilder = new ALog.Builder(this);
+    private ALog.Config mConfig = ALog.getConfig();
 
     private String  dir           = "";
     private String  globalTag     = "";
@@ -220,7 +220,7 @@ public class ALogActivity extends AppCompatActivity
                 fileFilter = fileFilter == ALog.V ? ALog.I : ALog.V;
                 break;
         }
-        mBuilder.setLogSwitch(log)
+        mConfig.setLogSwitch(log)
                 .setConsoleSwitch(console)
                 .setGlobalTag(globalTag)
                 .setLogHeadSwitch(head)
@@ -229,15 +229,15 @@ public class ALogActivity extends AppCompatActivity
                 .setBorderSwitch(border)
                 .setConsoleFilter(consoleFilter)
                 .setFileFilter(fileFilter);
-        tvAboutLog.setText(mBuilder.toString());
+        tvAboutLog.setText(mConfig.toString());
     }
     private String getDir() {
-        return mBuilder.toString().split(System.getProperty("line.separator"))[5].substring(5);
+        return mConfig.toString().split(System.getProperty("line.separator"))[5].substring(5);
     }
 
     @Override
     protected void onDestroy() {
-        ALogApp.initLog();
+        ALogApp.getInstance().initALog();
         super.onDestroy();
     }
 }

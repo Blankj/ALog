@@ -74,6 +74,7 @@ public final class ALog {
     private static int     sConsoleFilter     = V;    // log控制台过滤器
     private static int     sFileFilter        = V;    // log文件过滤器
 
+    private static Config sConfig;
     private static final String FILE_SEP      = System.getProperty("file.separator");
     private static final String LINE_SEP      = System.getProperty("line.separator");
     private static final String TOP_BORDER    = "╔═══════════════════════════════════════════════════════════════════════════════════════════════════";
@@ -90,89 +91,15 @@ public final class ALog {
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
 
-    public static class Builder {
-        public Builder(@NonNull Context context) {
-            if (sDefaultDir != null) return;
-            if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())
-                    && context.getExternalCacheDir() != null)
-                sDefaultDir = context.getExternalCacheDir() + FILE_SEP + "log" + FILE_SEP;
-            else {
-                sDefaultDir = context.getCacheDir() + FILE_SEP + "log" + FILE_SEP;
-            }
+    public static Config init(@NonNull Context context) {
+        if (sConfig == null) {
+            sConfig = new Config(context);
         }
+        return sConfig;
+    }
 
-        public Builder setLogSwitch(boolean logSwitch) {
-            sLogSwitch = logSwitch;
-            return this;
-        }
-
-        public Builder setConsoleSwitch(boolean consoleSwitch) {
-            sLog2ConsoleSwitch = consoleSwitch;
-            return this;
-        }
-
-        public Builder setGlobalTag(final String tag) {
-            if (isSpace(tag)) {
-                sGlobalTag = "";
-                sTagIsSpace = true;
-            } else {
-                sGlobalTag = tag;
-                sTagIsSpace = false;
-            }
-            return this;
-        }
-
-        public Builder setLogHeadSwitch(boolean logHeadSwitch) {
-            sLogHeadSwitch = logHeadSwitch;
-            return this;
-        }
-
-        public Builder setLog2FileSwitch(boolean log2FileSwitch) {
-            sLog2FileSwitch = log2FileSwitch;
-            return this;
-        }
-
-        public Builder setDir(final String dir) {
-            if (isSpace(dir)) {
-                sDir = null;
-            } else {
-                sDir = dir.endsWith(FILE_SEP) ? dir : dir + FILE_SEP;
-            }
-            return this;
-        }
-
-        public Builder setDir(final File dir) {
-            sDir = dir == null ? null : dir.getAbsolutePath() + FILE_SEP;
-            return this;
-        }
-
-        public Builder setBorderSwitch(boolean borderSwitch) {
-            sLogBorderSwitch = borderSwitch;
-            return this;
-        }
-
-        public Builder setConsoleFilter(@TYPE int consoleFilter) {
-            sConsoleFilter = consoleFilter;
-            return this;
-        }
-
-        public Builder setFileFilter(@TYPE int fileFilter) {
-            sFileFilter = fileFilter;
-            return this;
-        }
-
-        @Override
-        public String toString() {
-            return "switch: " + sLogSwitch
-                    + LINE_SEP + "console: " + sLog2ConsoleSwitch
-                    + LINE_SEP + "tag: " + (sTagIsSpace ? "null" : sGlobalTag)
-                    + LINE_SEP + "head: " + sLogHeadSwitch
-                    + LINE_SEP + "file: " + sLog2FileSwitch
-                    + LINE_SEP + "dir: " + (sDir == null ? sDefaultDir : sDir)
-                    + LINE_SEP + "border: " + sLogBorderSwitch
-                    + LINE_SEP + "consoleFilter: " + T[sConsoleFilter - V]
-                    + LINE_SEP + "fileFilter: " + T[sFileFilter - V];
-        }
+    public static Config getConfig() {
+        return sConfig;
     }
 
     public static void v(Object contents) {
@@ -479,5 +406,90 @@ public final class ALog {
             }
         }
         return true;
+    }
+
+    public static class Config {
+        private Config(@NonNull Context context) {
+            if (sDefaultDir != null) return;
+            if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())
+                    && context.getExternalCacheDir() != null)
+                sDefaultDir = context.getExternalCacheDir() + FILE_SEP + "log" + FILE_SEP;
+            else {
+                sDefaultDir = context.getCacheDir() + FILE_SEP + "log" + FILE_SEP;
+            }
+        }
+
+        public Config setLogSwitch(boolean logSwitch) {
+            sLogSwitch = logSwitch;
+            return this;
+        }
+
+        public Config setConsoleSwitch(boolean consoleSwitch) {
+            sLog2ConsoleSwitch = consoleSwitch;
+            return this;
+        }
+
+        public Config setGlobalTag(final String tag) {
+            if (isSpace(tag)) {
+                sGlobalTag = "";
+                sTagIsSpace = true;
+            } else {
+                sGlobalTag = tag;
+                sTagIsSpace = false;
+            }
+            return this;
+        }
+
+        public Config setLogHeadSwitch(boolean logHeadSwitch) {
+            sLogHeadSwitch = logHeadSwitch;
+            return this;
+        }
+
+        public Config setLog2FileSwitch(boolean log2FileSwitch) {
+            sLog2FileSwitch = log2FileSwitch;
+            return this;
+        }
+
+        public Config setDir(final String dir) {
+            if (isSpace(dir)) {
+                sDir = null;
+            } else {
+                sDir = dir.endsWith(FILE_SEP) ? dir : dir + FILE_SEP;
+            }
+            return this;
+        }
+
+        public Config setDir(final File dir) {
+            sDir = dir == null ? null : dir.getAbsolutePath() + FILE_SEP;
+            return this;
+        }
+
+        public Config setBorderSwitch(boolean borderSwitch) {
+            sLogBorderSwitch = borderSwitch;
+            return this;
+        }
+
+        public Config setConsoleFilter(@TYPE int consoleFilter) {
+            sConsoleFilter = consoleFilter;
+            return this;
+        }
+
+        public Config setFileFilter(@TYPE int fileFilter) {
+            sFileFilter = fileFilter;
+            return this;
+        }
+
+        @Override
+        public String toString() {
+            return "switch: " + sLogSwitch
+                    + LINE_SEP + "console: " + sLog2ConsoleSwitch
+                    + LINE_SEP + "tag: " + (sTagIsSpace ? "null" : sGlobalTag)
+                    + LINE_SEP + "head: " + sLogHeadSwitch
+                    + LINE_SEP + "file: " + sLog2FileSwitch
+                    + LINE_SEP + "dir: " + (sDir == null ? sDefaultDir : sDir)
+                    + LINE_SEP + "border: " + sLogBorderSwitch
+                    + LINE_SEP + "consoleFilter: " + T[sConsoleFilter - V]
+                    + LINE_SEP + "fileFilter: " + T[sFileFilter - V];
+        }
     }
 }

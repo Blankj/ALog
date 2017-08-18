@@ -1,7 +1,6 @@
 package com.blankj.alog;
 
 import android.app.Application;
-import android.content.Context;
 
 import com.blankj.ALog;
 
@@ -17,7 +16,7 @@ public class ALogApp extends Application {
 
     private static ALogApp sInstance;
 
-    public static Context getInstance() {
+    public static ALogApp getInstance() {
         return sInstance;
     }
 
@@ -25,11 +24,19 @@ public class ALogApp extends Application {
     public void onCreate() {
         super.onCreate();
         sInstance = this;
-        initLog();
+        initALog();
+        ALog.e("onCreate: ");
+        ALog.d("onCreate() called");
+        ALog.i("onCreate: ");
+        ALog.d("onCreate: ");
+        ALog.w("onCreate: ");
+
+
     }
 
-    public static void initLog() {
-        ALog.Builder builder = new ALog.Builder(sInstance)
+    // init it in ur application
+    public void initALog() {
+        ALog.Config config = ALog.init(this)
                 .setLogSwitch(BuildConfig.DEBUG)// 设置log总开关，包括输出到控制台和文件，默认开
                 .setConsoleSwitch(BuildConfig.DEBUG)// 设置是否输出到控制台开关，默认开
                 .setGlobalTag(null)// 设置log全局标签，默认为空
@@ -41,6 +48,8 @@ public class ALogApp extends Application {
                 .setBorderSwitch(true)// 输出日志是否带边框开关，默认开
                 .setConsoleFilter(ALog.V)// log的控制台过滤器，和logcat过滤器同理，默认Verbose
                 .setFileFilter(ALog.V);// log文件过滤器，和logcat过滤器同理，默认Verbose
-        ALog.d(builder.toString());
+        ALog.d(config.toString());
     }
+
+
 }

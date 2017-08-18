@@ -27,24 +27,26 @@
 ## API→[ALog.java][alog.java]→[Demo][alog.demo]
 
 ```
-Builder.setLogSwitch     : 设置log总开关
-Builder.setConsoleSwitch : 设置log控制台开关
-Builder.setGlobalTag     : 设置log全局tag
-Builder.setLogHeadSwitch : 设置log头部信息开关
-Builder.setLog2FileSwitch: 设置log文件开关
-Builder.setDir           : 设置log文件存储目录
-Builder.setBorderSwitch  : 设置log边框开关
-Builder.setConsoleFilter : 设置log控制台过滤器
-Builder.setFileFilter    : 设置log文件过滤器
-v                        : Verbose日志
-d                        : Debug日志
-i                        : Info日志
-w                        : Warn日志
-e                        : Error日志
-a                        : Assert日志
-file                     : log到文件
-json                     : log字符串之json
-xml                      : log字符串之xml
+init                    : 初始化
+getConfig               : 获取log配置
+Config.setLogSwitch     : 设置log总开关
+Config.setConsoleSwitch : 设置log控制台开关
+Config.setGlobalTag     : 设置log全局tag
+Config.setLogHeadSwitch : 设置log头部信息开关
+Config.setLog2FileSwitch: 设置log文件开关
+Config.setDir           : 设置log文件存储目录
+Config.setBorderSwitch  : 设置log边框开关
+Config.setConsoleFilter : 设置log控制台过滤器
+Config.setFileFilter    : 设置log文件过滤器
+v                       : Verbose日志
+d                       : Debug日志
+i                       : Info日志
+w                       : Warn日志
+e                       : Error日志
+a                       : Assert日志
+file                    : log到文件
+json                    : log字符串之json
+xml                     : log字符串之xml
 ```
 
 
@@ -60,29 +62,29 @@ xml                      : log字符串之xml
 在Application的`onCreate`函数中初始化，如下
 
 ``` java
-@Override
-public void onCreate() {
-    super.onCreate();
-    ALog.Builder builder = new ALog.Builder(this);
+// init it in ur application
+public void initALog() {
+    ALog.Config config = ALog.init(this)
+            .setLogSwitch(BuildConfig.DEBUG)// 设置log总开关，包括输出到控制台和文件，默认开
+            .setConsoleSwitch(BuildConfig.DEBUG)// 设置是否输出到控制台开关，默认开
+            .setGlobalTag(null)// 设置log全局标签，默认为空
+            // 当全局标签不为空时，我们输出的log全部为该tag，
+            // 为空时，如果传入的tag为空那就显示类名，否则显示tag
+            .setLogHeadSwitch(true)// 设置log头信息开关，默认为开
+            .setLog2FileSwitch(false)// 打印log时是否存到文件的开关，默认关
+            .setDir("")// 当自定义路径为空时，写入应用的/cache/log/目录中
+            .setBorderSwitch(true)// 输出日志是否带边框开关，默认开
+            .setConsoleFilter(ALog.V)// log的控制台过滤器，和logcat过滤器同理，默认Verbose
+            .setFileFilter(ALog.V);// log文件过滤器，和logcat过滤器同理，默认Verbose
+    ALog.d(config.toString());
 }
 ```
 
-当然，ALog还支持多参数配置，具体如下
+借助我帮大家写好的`Live Templates`大家可以更方便地使用`ALog`，演示动画如下所示。
 
-``` java
-new ALog.Builder(context)
-        .setLogSwitch(BuildConfig.DEBUG)// 设置log总开关，包括输出到控制台和文件，默认开
-        .setConsoleSwitch(BuildConfig.DEBUG)// 设置是否输出到控制台开关，默认开
-        .setGlobalTag(null)// 设置log全局标签，默认为空
-        // 当全局标签不为空时，我们输出的log全部为该tag，
-        // 为空时，如果传入的tag为空那就显示类名，否则显示tag
-        .setLogHeadSwitch(true)// 设置log头信息开关，默认为开
-        .setLog2FileSwitch(false)// 打印log时是否存到文件的开关，默认关
-        .setDir("")// 当自定义路径为空时，写入应用的/cache/log/目录中
-        .setBorderSwitch(true)// 输出日志是否带边框开关，默认开
-        .setConsoleFilter(ALog.V)// log的控制台过滤器，和logcat过滤器同理，默认Verbose
-        .setFileFilter(ALog.V);// log文件过滤器，和logcat过滤器同理，默认Verbose
-```
+![templates][templates]
+
+大家可以下载这个[jar]包，然后在AS中`File→Import Settings`即可。
 
 
 ### 默认初始化下的图例
@@ -123,8 +125,6 @@ new ALog.Builder(context)
 [![jianshu][jianshusvg]][jianshu] [![weibo][weibosvg]][weibo]  [![Blog][blogsvg]][blog] [![QQ0Group][qq0groupsvg]][qq0group] [![QQ1Group][qq1groupsvg]][qq1group]
 
 
-
-
 [alogsvg]: https://img.shields.io/badge/ALog-v1.1.0-brightgreen.svg
 [alog]: https://github.com/Blankj/ALog
 
@@ -141,13 +141,15 @@ new ALog.Builder(context)
 [alog.demo]: https://github.com/Blankj/ALog/blob/master/app/src/main/java/com/blankj/alog/ALogActivity.java
 [jarsvg]: https://img.shields.io/badge/download-jar--4Kb-brightgreen.svg
 [jar]: https://jcenter.bintray.com/com/blankj/alog/1.1.0/alog-1.1.0-sources.jar
-[detail]: https://raw.githubusercontent.com/Blankj/ALog/master/img/detail.png
-[args]: https://raw.githubusercontent.com/Blankj/ALog/master/img/args.png
-[long]: https://raw.githubusercontent.com/Blankj/ALog/master/img/long.png
-[file]: https://raw.githubusercontent.com/Blankj/ALog/master/img/file.png
-[filecontent]: https://raw.githubusercontent.com/Blankj/ALog/master/img/filecontent.png
-[json]: https://raw.githubusercontent.com/Blankj/ALog/master/img/json.png
-[xml]: https://raw.githubusercontent.com/Blankj/ALog/master/img/xml.png
+[detail]: https://raw.githubusercontent.com/Blankj/ALog/master/art/detail.png
+[args]: https://raw.githubusercontent.com/Blankj/ALog/master/art/args.png
+[long]: https://raw.githubusercontent.com/Blankj/ALog/master/art/long.png
+[file]: https://raw.githubusercontent.com/Blankj/ALog/master/art/file.png
+[filecontent]: https://raw.githubusercontent.com/Blankj/ALog/master/art/filecontent.png
+[json]: https://raw.githubusercontent.com/Blankj/ALog/master/art/json.png
+[xml]: https://raw.githubusercontent.com/Blankj/ALog/master/art/xml.png
+[templates]: https://raw.githubusercontent.com/Blankj/ALog/master/art/alog.gif
+[jar]: https://raw.githubusercontent.com/Blankj/ALog/master/art/alog_templates.jar
 
 [jianshusvg]: https://img.shields.io/badge/简书-Blankj-brightgreen.svg
 [jianshu]: http://www.jianshu.com/u/46702d5c6978
