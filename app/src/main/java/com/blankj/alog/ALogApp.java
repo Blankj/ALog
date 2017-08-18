@@ -25,12 +25,13 @@ public class ALogApp extends Application {
         super.onCreate();
         sInstance = this;
         initALog();
-        ALog.e("onCreate: ");
-        ALog.d("onCreate() called");
-        ALog.i("onCreate: ");
-        ALog.d("onCreate: ");
-        ALog.w("onCreate: ");
 
+        ALog.d("ddd");
+        ALog.i("iiii");
+        ALog.w("wwwww");
+        ALog.e("eeeeee");
+        ALog.d("onCreate() called");
+        ALog.d("returned: " + 1);
 
     }
 
