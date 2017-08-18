@@ -84,7 +84,7 @@ public void initALog() {
 
 ![templates][templates]
 
-大家可以下载这个[jar]包，然后在AS中`File→Import Settings`即可。
+大家可以下载这个[Live Templates][templates_jar]包，然后在AS中`File→Import Settings`即可。
 
 
 ### 默认初始化下的图例
@@ -149,7 +149,7 @@ public void initALog() {
 [json]: https://raw.githubusercontent.com/Blankj/ALog/master/art/json.png
 [xml]: https://raw.githubusercontent.com/Blankj/ALog/master/art/xml.png
 [templates]: https://raw.githubusercontent.com/Blankj/ALog/master/art/alog.gif
-[jar]: https://raw.githubusercontent.com/Blankj/ALog/master/art/alog_templates.jar
+[templates_jar]: https://raw.githubusercontent.com/Blankj/ALog/master/art/alog_templates.jar
 
 [jianshusvg]: https://img.shields.io/badge/简书-Blankj-brightgreen.svg
 [jianshu]: http://www.jianshu.com/u/46702d5c6978
