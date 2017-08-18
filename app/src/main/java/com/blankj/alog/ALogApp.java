@@ -25,14 +25,6 @@ public class ALogApp extends Application {
         super.onCreate();
         sInstance = this;
         initALog();
-
-        ALog.d("ddd");
-        ALog.i("iiii");
-        ALog.w("wwwww");
-        ALog.e("eeeeee");
-        ALog.d("onCreate() called");
-        ALog.d("returned: " + 1);
-
     }
 
     // init it in ur application
@@ -51,6 +43,4 @@ public class ALogApp extends Application {
                 .setFileFilter(ALog.V);// log文件过滤器，和logcat过滤器同理，默认Verbose
         ALog.d(config.toString());
     }
-
-
 }

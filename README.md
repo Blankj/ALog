@@ -21,6 +21,7 @@
 * 支持单独写入文件
 * 支持JSON串的输出
 * 支持XML串的输出
+* 支持Live Templates
 * jar包不足5Kb
 
 
@@ -85,6 +86,8 @@ public void initALog() {
 ![templates][templates]
 
 大家可以下载这个[Live Templates][templates_jar]包，然后在AS中`File→Import Settings`即可。
+
+关于如何写`Live Templates`，其实大家可以借鉴安卓自带的`Live Templates`，然后效仿一下即可。
 
 
 ### 默认初始化下的图例
