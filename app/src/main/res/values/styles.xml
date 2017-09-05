@@ -14,6 +14,7 @@
 
     <style name="TextStyle">
         <item name="android:textSize">@dimen/font_26</item>
+        <item name="android:textColor">@color/light_black</item>
     </style>
 
     <style name="WideBtnStyle">

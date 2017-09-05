@@ -13,9 +13,11 @@
 * Log头部含有当前类及行号和函数名，支持点击跳转
 * 可设置Log是否写入文件
 * 可设置Log写入文件目录
+* 可设置Log写入文件前缀
 * 可设置Log是否显示边框
 * 可设置Log控制台过滤器
 * 可设置Log文件过滤器
+* 可设置Log栈深度
 * 支持控制台长字符串的输出
 * 支持多参数输出
 * 支持单独写入文件
@@ -36,9 +38,11 @@ Config.setGlobalTag     : 设置log全局tag
 Config.setLogHeadSwitch : 设置log头部信息开关
 Config.setLog2FileSwitch: 设置log文件开关
 Config.setDir           : 设置log文件存储目录
+Config.setFilePrefix    : 设置log文件前缀
 Config.setBorderSwitch  : 设置log边框开关
 Config.setConsoleFilter : 设置log控制台过滤器
 Config.setFileFilter    : 设置log文件过滤器
+Config.setStackDeep     : 设置log栈深度
 v                       : Verbose日志
 d                       : Debug日志
 i                       : Info日志
@@ -53,7 +57,7 @@ xml                     : log字符串之xml
 
 ## How to use
 
-`compile 'com.blankj:alog:1.2.0'` or [![Download][jarsvg]][jar]
+`compile 'com.blankj:alog:1.3.0'` or [![Download][jarsvg]][jar]
 
 
 ## Usage
@@ -74,9 +78,11 @@ public void initALog() {
             .setLogHeadSwitch(true)// 设置log头信息开关，默认为开
             .setLog2FileSwitch(false)// 打印log时是否存到文件的开关，默认关
             .setDir("")// 当自定义路径为空时，写入应用的/cache/log/目录中
+            .setFilePrefix("")// 当文件前缀为空时，默认为"alog"，即写入文件为"alog-MM-dd.txt"
             .setBorderSwitch(true)// 输出日志是否带边框开关，默认开
             .setConsoleFilter(ALog.V)// log的控制台过滤器，和logcat过滤器同理，默认Verbose
-            .setFileFilter(ALog.V);// log文件过滤器，和logcat过滤器同理，默认Verbose
+            .setFileFilter(ALog.V)// log文件过滤器，和logcat过滤器同理，默认Verbose
+            .setStackDeep(1);// log栈深度，默认为1
     ALog.d(config.toString());
 }
 ```
@@ -128,7 +134,7 @@ public void initALog() {
 [![jianshu][jianshusvg]][jianshu] [![weibo][weibosvg]][weibo]  [![Blog][blogsvg]][blog] [![QQ0Group][qq0groupsvg]][qq0group] [![QQ1Group][qq1groupsvg]][qq1group]
 
 
-[alogsvg]: https://img.shields.io/badge/ALog-v1.2.0-brightgreen.svg
+[alogsvg]: https://img.shields.io/badge/ALog-v1.3.0-brightgreen.svg
 [alog]: https://github.com/Blankj/ALog
 
 [apisvg]: https://img.shields.io/badge/API-11+-brightgreen.svg
@@ -143,7 +149,7 @@ public void initALog() {
 [alog.java]: https://github.com/Blankj/ALog/blob/master/alog/src/main/java/com/blankj/ALog.java
 [alog.demo]: https://github.com/Blankj/ALog/blob/master/app/src/main/java/com/blankj/alog/ALogActivity.java
 [jarsvg]: https://img.shields.io/badge/download-jar--4Kb-brightgreen.svg
-[jar]: https://jcenter.bintray.com/com/blankj/alog/1.2.0/alog-1.2.0-sources.jar
+[jar]: https://jcenter.bintray.com/com/blankj/alog/1.3.0/alog-1.3.0-sources.jar
 [detail]: https://raw.githubusercontent.com/Blankj/ALog/master/art/detail.png
 [args]: https://raw.githubusercontent.com/Blankj/ALog/master/art/args.png
 [long]: https://raw.githubusercontent.com/Blankj/ALog/master/art/long.png

@@ -7,8 +7,8 @@ android {
         applicationId "com.blankj.alog"
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
-        versionCode 100200000
-        versionName "1.2.0"
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
     }
 
     buildTypes {

@@ -7,8 +7,8 @@ android {
     defaultConfig {
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
-        versionCode 100200000
-        versionName "1.2.0"
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
 
     }
 
@@ -28,4 +28,4 @@ dependencies {
     provided deps.annotations
 }
 //apply from: "https://raw.githubusercontent.com/xiaopansky/android-library-publish-to-jcenter/master/bintrayUpload.gradle"
-//gradlew bintrayUpload
+//gradle bintrayUpload
