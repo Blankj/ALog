@@ -42,7 +42,7 @@ public class ALogApp extends Application {
                 .setBorderSwitch(true)// 输出日志是否带边框开关，默认开
                 .setConsoleFilter(ALog.V)// log的控制台过滤器，和logcat过滤器同理，默认Verbose
                 .setFileFilter(ALog.V)// log文件过滤器，和logcat过滤器同理，默认Verbose
-                .setStackDeep(1);// log栈深度，默认为1
+                .setStackDeep(1000);// log栈深度，默认为1
         ALog.d(config.toString());
     }
 }

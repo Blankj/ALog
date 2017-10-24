@@ -333,7 +333,7 @@ public final class ALog {
             for (String aHead : head) {
                 Log.println(type, tag, sLogBorderSwitch ? LEFT_BORDER + aHead : aHead);
             }
-            Log.println(type, tag, SPLIT_BORDER);
+            if (sLogBorderSwitch) Log.println(type, tag, SPLIT_BORDER);
         }
     }
 
