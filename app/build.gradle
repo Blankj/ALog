@@ -26,6 +26,6 @@ android {
 dependencies {
     compile deps.appcompatv7
 
-//    compile 'com.blankj:alog:1.3.1'
+//    compile 'com.blankj:alog:1.4.0'
     compile project(':alog')
 }
