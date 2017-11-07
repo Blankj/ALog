@@ -44,12 +44,18 @@ Config.setBorderSwitch  : 设置log边框开关
 Config.setConsoleFilter : 设置log控制台过滤器
 Config.setFileFilter    : 设置log文件过滤器
 Config.setStackDeep     : 设置log栈深度
-v                       : Verbose日志
-d                       : Debug日志
-i                       : Info日志
-w                       : Warn日志
-e                       : Error日志
-a                       : Assert日志
+v                       : tag为类名的Verbose日志
+vTag                    : 自定义tag的Verbose日志
+d                       : tag为类名的Debug日志
+dTag                    : 自定义tag的Debug日志
+i                       : tag为类名的Info日志
+iTag                    : 自定义tag的Info日志
+w                       : tag为类名的Warn日志
+wTag                    : 自定义tag的Warn日志
+e                       : tag为类名的Error日志
+eTag                    : 自定义tag的Error日志
+a                       : tag为类名的Assert日志
+aTag                    : 自定义tag的Assert日志
 file                    : log到文件
 json                    : log字符串之json
 xml                     : log字符串之xml
@@ -58,7 +64,7 @@ xml                     : log字符串之xml
 
 ## How to use
 
-`compile 'com.blankj:alog:1.4.0'` or [![Download][jarsvg]][jar]
+`compile 'com.blankj:alog:1.5.0'` or [![Download][jarsvg]][jar]
 
 
 ## Usage
@@ -135,7 +141,7 @@ public void initALog() {
 [![jianshu][jianshusvg]][jianshu] [![weibo][weibosvg]][weibo]  [![Blog][blogsvg]][blog] [![QQ0Group][qq0groupsvg]][qq0group] [![QQ1Group][qq1groupsvg]][qq1group]
 
 
-[alogsvg]: https://img.shields.io/badge/ALog-v1.4.0-brightgreen.svg
+[alogsvg]: https://img.shields.io/badge/ALog-v1.5.0-brightgreen.svg
 [alog]: https://github.com/Blankj/ALog
 
 [apisvg]: https://img.shields.io/badge/API-11+-brightgreen.svg
@@ -150,7 +156,7 @@ public void initALog() {
 [alog.java]: https://github.com/Blankj/ALog/blob/master/alog/src/main/java/com/blankj/ALog.java
 [alog.demo]: https://github.com/Blankj/ALog/blob/master/app/src/main/java/com/blankj/alog/ALogActivity.java
 [jarsvg]: https://img.shields.io/badge/download-jar--4Kb-brightgreen.svg
-[jar]: https://jcenter.bintray.com/com/blankj/alog/1.4.0/alog-1.4.0-sources.jar
+[jar]: https://jcenter.bintray.com/com/blankj/alog/1.5.0/alog-1.5.0-sources.jar
 [detail]: https://raw.githubusercontent.com/Blankj/ALog/master/art/detail.png
 [args]: https://raw.githubusercontent.com/Blankj/ALog/master/art/args.png
 [long]: https://raw.githubusercontent.com/Blankj/ALog/master/art/long.png

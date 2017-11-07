@@ -135,12 +135,12 @@ public class ALogActivity extends AppCompatActivity
                 ALog.a("assert");
                 break;
             case R.id.btn_log_with_tag:
-                ALog.v("customTag", "verbose");
-                ALog.d("customTag", "debug");
-                ALog.i("customTag", "info");
-                ALog.w("customTag", "warn");
-                ALog.e("customTag", "error");
-                ALog.a("customTag", "assert");
+                ALog.vTag("customTag", "verbose");
+                ALog.dTag("customTag", "debug");
+                ALog.iTag("customTag", "info");
+                ALog.wTag("customTag", "warn");
+                ALog.eTag("customTag", "error");
+                ALog.aTag("customTag", "assert");
                 break;
             case R.id.btn_log_in_new_thread:
                 Thread thread = new Thread(mRunnable);
@@ -155,12 +155,18 @@ public class ALogActivity extends AppCompatActivity
                 ALog.a(null);
                 break;
             case R.id.btn_log_many_params:
-                ALog.v("customTag", "verbose0", "verbose1");
-                ALog.d("customTag", "debug0", "debug1");
-                ALog.i("customTag", "info0", "info1");
-                ALog.w("customTag", "warn0", "warn1");
-                ALog.e("customTag", "error0", "error1");
-                ALog.a("customTag", "assert0", "assert1");
+                ALog.v("verbose0", "verbose1");
+                ALog.vTag("customTag", "verbose0", "verbose1");
+                ALog.d("debug0", "debug1");
+                ALog.dTag("customTag", "debug0", "debug1");
+                ALog.i("info0", "info1");
+                ALog.iTag("customTag", "info0", "info1");
+                ALog.w("warn0", "warn1");
+                ALog.wTag("customTag", "warn0", "warn1");
+                ALog.e("error0", "error1");
+                ALog.eTag("customTag", "error0", "error1");
+                ALog.a("assert0", "assert1");
+                ALog.aTag("customTag", "assert0", "assert1");
                 break;
             case R.id.btn_log_long:
                 ALog.d(longStr);
