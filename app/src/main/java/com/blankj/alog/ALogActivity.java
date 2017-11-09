@@ -147,12 +147,12 @@ public class ALogActivity extends AppCompatActivity
                 thread.start();
                 break;
             case R.id.btn_log_null:
-                ALog.v(null);
-                ALog.d(null);
-                ALog.i(null);
-                ALog.w(null);
-                ALog.e(null);
-                ALog.a(null);
+                ALog.v((Object) null);
+                ALog.d((Object) null);
+                ALog.i((Object) null);
+                ALog.w((Object) null);
+                ALog.e((Object) null);
+                ALog.a((Object) null);
                 break;
             case R.id.btn_log_many_params:
                 ALog.v("verbose0", "verbose1");
