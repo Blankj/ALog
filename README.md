@@ -10,6 +10,7 @@
 * 可设置Log全局Tag
 * 全局Tag为空时Tag为当前类名
 * 可设置Log是否显示头部信息
+* Log文件顶部显示设备信息
 * Log头部含有当前线程名
 * Log头部含有当前类及行号和函数名，支持点击跳转
 * 可设置Log是否写入文件
@@ -64,7 +65,7 @@ xml                     : log字符串之xml
 
 ## How to use
 
-`compile 'com.blankj:alog:1.5.0'` or [![Download][jarsvg]][jar]
+`compile 'com.blankj:alog:1.6.0'` or [![Download][jarsvg]][jar]
 
 
 ## Usage
@@ -141,7 +142,7 @@ public void initALog() {
 [![jianshu][jianshusvg]][jianshu] [![weibo][weibosvg]][weibo]  [![Blog][blogsvg]][blog] [![QQ0Group][qq0groupsvg]][qq0group] [![QQ1Group][qq1groupsvg]][qq1group]
 
 
-[alogsvg]: https://img.shields.io/badge/ALog-v1.5.0-brightgreen.svg
+[alogsvg]: https://img.shields.io/badge/ALog-v1.6.0-brightgreen.svg
 [alog]: https://github.com/Blankj/ALog
 
 [apisvg]: https://img.shields.io/badge/API-11+-brightgreen.svg
@@ -156,7 +157,7 @@ public void initALog() {
 [alog.java]: https://github.com/Blankj/ALog/blob/master/alog/src/main/java/com/blankj/ALog.java
 [alog.demo]: https://github.com/Blankj/ALog/blob/master/app/src/main/java/com/blankj/alog/ALogActivity.java
 [jarsvg]: https://img.shields.io/badge/download-jar--4Kb-brightgreen.svg
-[jar]: https://jcenter.bintray.com/com/blankj/alog/1.5.0/alog-1.5.0-sources.jar
+[jar]: https://jcenter.bintray.com/com/blankj/alog/1.6.0/alog-1.6.0-sources.jar
 [detail]: https://raw.githubusercontent.com/Blankj/ALog/master/art/detail.png
 [args]: https://raw.githubusercontent.com/Blankj/ALog/master/art/args.png
 [long]: https://raw.githubusercontent.com/Blankj/ALog/master/art/long.png
