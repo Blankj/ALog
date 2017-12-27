@@ -1,5 +1,6 @@
 package com.blankj;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -26,7 +27,6 @@ import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Formatter;
-import java.util.Locale;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -80,7 +80,9 @@ public final class ALog {
     private static final String MIDDLE_BORDER  = MIDDLE_CORNER + MIDDLE_DIVIDER + MIDDLE_DIVIDER;
     private static final String BOTTOM_BORDER  = BOTTOM_CORNER + SIDE_DIVIDER + SIDE_DIVIDER;
     private static final int    MAX_LEN        = 4000;
-    private static final Format FORMAT         = new SimpleDateFormat("MM-dd HH:mm:ss.SSS ", Locale.getDefault());
+    @SuppressLint("SimpleDateFormat")
+    private static final Format FORMAT         = new SimpleDateFormat("MM-dd HH:mm:ss.SSS ");
+    private static final String NOTHING        = "log nothing";
     private static final String NULL           = "null";
     private static final String ARGS           = "args";
 
@@ -234,7 +236,8 @@ public final class ALog {
             StackTraceElement targetElement = stackTrace[3];
             String fileName = targetElement.getFileName();
             String className;
-            if (fileName == null) {// 混淆可能会导致获取为空 加-keepattributes SourceFile,LineNumberTable
+            // 混淆可能会导致获取为空 加-keepattributes SourceFile,LineNumberTable
+            if (fileName == null) {
                 className = targetElement.getClassName();
                 String[] classNameInfo = className.split("\\.");
                 if (classNameInfo.length > 0) {
@@ -263,7 +266,8 @@ public final class ALog {
                 if (sStackDeep <= 1) {
                     return new TagHead(tag, new String[]{head}, fileHead);
                 } else {
-                    final String[] consoleHead = new String[Math.min(sStackDeep, stackTrace.length - 3)];
+                    final String[] consoleHead =
+                            new String[Math.min(sStackDeep, stackTrace.length - 3)];
                     consoleHead[0] = head;
                     int spaceLen = tName.length() + 2;
                     String space = new Formatter().format("%" + spaceLen + "s", "").toString();
@@ -310,7 +314,7 @@ public final class ALog {
                 body = sb.toString();
             }
         }
-        return body;
+        return body.length() == 0 ? NOTHING : body;
     }
 
     private static String formatJson(String json) {
@@ -341,7 +345,10 @@ public final class ALog {
         return xml;
     }
 
-    private static void print2Console(final int type, final String tag, final String[] head, final String msg) {
+    private static void print2Console(final int type,
+                                      final String tag,
+                                      final String[] head,
+                                      final String msg) {
         printBorder(type, tag, true);
         printHead(type, tag, head);
         printMsg(type, tag, msg);
@@ -397,7 +404,8 @@ public final class ALog {
         String format = FORMAT.format(now);
         String date = format.substring(0, 5);
         String time = format.substring(6);
-        final String fullPath = (sDir == null ? sDefaultDir : sDir) + sFilePrefix + "-" + date + ".txt";
+        final String fullPath =
+                (sDir == null ? sDefaultDir : sDir) + sFilePrefix + "-" + date + ".txt";
         if (!createOrExistsFile(fullPath)) {
             Log.e(tag, "log to " + fullPath + " failed!");
             return;
@@ -435,7 +443,8 @@ public final class ALog {
         String versionName = "";
         int versionCode = 0;
         try {
-            PackageInfo pi = sAppContext.getPackageManager().getPackageInfo(sAppContext.getPackageName(), 0);
+            PackageInfo pi = sAppContext.getPackageManager()
+                    .getPackageInfo(sAppContext.getPackageName(), 0);
             if (pi != null) {
                 versionName = pi.versionName;
                 versionCode = pi.versionCode;

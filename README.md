@@ -4,104 +4,104 @@
 
 ## Functions
 
-* 兼容Kotlin
-* 可设置Log开启和关闭
-* 可设置是否输出到控制台(Logcat)
-* 可设置Log全局Tag
-* 全局Tag为空时Tag为当前类名
-* 可设置Log是否显示头部信息
-* Log文件顶部显示设备信息
-* Log头部含有当前线程名
-* Log头部含有当前类及行号和函数名，支持点击跳转
-* 可设置Log是否写入文件
-* 可设置Log写入文件目录
-* 可设置Log写入文件前缀
-* 可设置Log是否显示边框
-* 可设置Log控制台过滤器
-* 可设置Log文件过滤器
-* 可设置Log栈深度
+* 兼容 Kotlin
+* 可设置 Log 开启和关闭
+* 可设置是否输出到控制台（Logcat）
+* 可设置 Log 全局 Tag
+* 全局 Tag 为空时 Tag 为当前类名
+* 可设置 Log 是否显示头部信息
+* Log 文件顶部显示设备信息
+* Log 头部含有当前线程名
+* Log 头部含有当前类及行号和函数名，支持点击跳转
+* 可设置 Log 是否写入文件
+* 可设置 Log 写入文件目录
+* 可设置 Log 写入文件前缀
+* 可设置 Log 是否显示边框
+* 可设置 Log 控制台过滤器
+* 可设置 Log 文件过滤器
+* 可设置 Log 栈深度
 * 支持控制台长字符串的输出
 * 支持多参数输出
 * 支持单独写入文件
-* 支持JSON串的输出
-* 支持XML串的输出
-* 支持Live Templates
-* jar包不足5Kb
+* 支持 JSON 串的输出
+* 支持 XML 串的输出
+* 支持 Live Templates
+* jar 包不足 5Kb
 
 
-## API→[ALog.java][alog.java]→[Demo][alog.demo]
+## API -> [ALog.java][alog.java] -> [Demo][alog.demo]
 
 ```
 init                    : 初始化
-getConfig               : 获取log配置
-Config.setLogSwitch     : 设置log总开关
-Config.setConsoleSwitch : 设置log控制台开关
-Config.setGlobalTag     : 设置log全局tag
-Config.setLogHeadSwitch : 设置log头部信息开关
-Config.setLog2FileSwitch: 设置log文件开关
-Config.setDir           : 设置log文件存储目录
-Config.setFilePrefix    : 设置log文件前缀
-Config.setBorderSwitch  : 设置log边框开关
-Config.setConsoleFilter : 设置log控制台过滤器
-Config.setFileFilter    : 设置log文件过滤器
-Config.setStackDeep     : 设置log栈深度
-v                       : tag为类名的Verbose日志
-vTag                    : 自定义tag的Verbose日志
-d                       : tag为类名的Debug日志
-dTag                    : 自定义tag的Debug日志
-i                       : tag为类名的Info日志
-iTag                    : 自定义tag的Info日志
-w                       : tag为类名的Warn日志
-wTag                    : 自定义tag的Warn日志
-e                       : tag为类名的Error日志
-eTag                    : 自定义tag的Error日志
-a                       : tag为类名的Assert日志
-aTag                    : 自定义tag的Assert日志
-file                    : log到文件
-json                    : log字符串之json
-xml                     : log字符串之xml
+getConfig               : 获取 log 配置
+Config.setLogSwitch     : 设置 log 总开关
+Config.setConsoleSwitch : 设置 log 控制台开关
+Config.setGlobalTag     : 设置 log 全局 tag
+Config.setLogHeadSwitch : 设置 log 头部信息开关
+Config.setLog2FileSwitch: 设置 log 文件开关
+Config.setDir           : 设置 log 文件存储目录
+Config.setFilePrefix    : 设置 log 文件前缀
+Config.setBorderSwitch  : 设置 log 边框开关
+Config.setConsoleFilter : 设置 log 控制台过滤器
+Config.setFileFilter    : 设置 log 文件过滤器
+Config.setStackDeep     : 设置 log 栈深度
+v                       : tag 为类名的 Verbose日志
+vTag                    : 自定义 tag 的 Verbose日志
+d                       : tag 为类名的 Debug 日志
+dTag                    : 自定义 tag 的 Debug 日志
+i                       : tag 为类名的 Info 日志
+iTag                    : 自定义 tag 的 Info 日志
+w                       : tag 为类名的 Warn 日志
+wTag                    : 自定义 tag 的 Warn 日志
+e                       : tag 为类名的 Error日志
+eTag                    : 自定义 tag 的 Error日志
+a                       : tag 为类名的 Assert 日志
+aTag                    : 自定义 tag 的 Assert 日志
+file                    : log 到文件
+json                    : log 字符串之 json
+xml                     : log 字符串之 xml
 ```
 
 
 ## How to use
 
-`compile 'com.blankj:alog:1.6.0'` or [![Download][jarsvg]][jar]
+`compile 'com.blankj:alog:1.6.1'` or [![Download][jarsvg]][jar]
 
 
 ## Usage
 
 ### 初始化
 
-在Application的`onCreate`函数中初始化，如下
+在 Application 的 `onCreate` 函数中初始化，如下
 
 ``` java
 // init it in ur application
 public void initALog() {
     ALog.Config config = ALog.init(this)
-            .setLogSwitch(BuildConfig.DEBUG)// 设置log总开关，包括输出到控制台和文件，默认开
+            .setLogSwitch(BuildConfig.DEBUG)// 设置 log 总开关，包括输出到控制台和文件，默认开
             .setConsoleSwitch(BuildConfig.DEBUG)// 设置是否输出到控制台开关，默认开
-            .setGlobalTag(null)// 设置log全局标签，默认为空
-            // 当全局标签不为空时，我们输出的log全部为该tag，
-            // 为空时，如果传入的tag为空那就显示类名，否则显示tag
-            .setLogHeadSwitch(true)// 设置log头信息开关，默认为开
-            .setLog2FileSwitch(false)// 打印log时是否存到文件的开关，默认关
-            .setDir("")// 当自定义路径为空时，写入应用的/cache/log/目录中
-            .setFilePrefix("")// 当文件前缀为空时，默认为"alog"，即写入文件为"alog-MM-dd.txt"
+            .setGlobalTag(null)// 设置 log 全局标签，默认为空
+            // 当全局标签不为空时，我们输出的 log 全部为该 tag，
+            // 为空时，如果传入的 tag 为空那就显示类名，否则显示 tag
+            .setLogHeadSwitch(true)// 设置 log 头信息开关，默认为开
+            .setLog2FileSwitch(false)// 打印 log 时是否存到文件的开关，默认关
+            .setDir("")// 当自定义路径为空时，写入应用的 /cache/log/ 目录中
+            .setFilePrefix("")// 当文件前缀为空时，默认为 "alog"，即写入文件为 "alog-MM-dd.txt"
             .setBorderSwitch(true)// 输出日志是否带边框开关，默认开
-            .setConsoleFilter(ALog.V)// log的控制台过滤器，和logcat过滤器同理，默认Verbose
-            .setFileFilter(ALog.V)// log文件过滤器，和logcat过滤器同理，默认Verbose
-            .setStackDeep(1);// log栈深度，默认为1
+            .setConsoleFilter(ALog.V)// log 的控制台过滤器，和 logcat 过滤器同理，默认 Verbose
+            .setFileFilter(ALog.V)// log 文件过滤器，和 logcat 过滤器同理，默认 Verbose
+            .setStackDeep(1);// log 栈深度，默认为 1
     ALog.d(config.toString());
 }
 ```
 
-借助我帮大家写好的`Live Templates`大家可以更方便地使用`ALog`，演示动画如下所示。
+借助我帮大家写好的 `Live Templates` 大家可以更方便地使用 `ALog`，演示动画如下所示。
 
 ![templates][templates]
 
-大家可以下载这个[Live Templates][templates_jar]包，然后在AS中`File→Import Settings`即可。
+大家可以下载这个 [Live Templates][templates_jar] 包，然后在 AS 中 `File -> Import Settings` 即可。
 
-关于如何写`Live Templates`，其实大家可以借鉴安卓自带的`Live Templates`，然后效仿一下即可。
+关于如何写 `Live Templates`，其实大家可以借鉴安卓自带的 `Live Templates`，然后效仿一下即可。
 
 
 ### 默认初始化下的图例
@@ -133,7 +133,7 @@ public void initALog() {
 ![xml][xml]
 
 
-更多使用请运行demo来查看。
+更多使用请运行 demo 来查看。
 
 
 
@@ -142,7 +142,7 @@ public void initALog() {
 [![jianshu][jianshusvg]][jianshu] [![weibo][weibosvg]][weibo]  [![Blog][blogsvg]][blog] [![QQ0Group][qq0groupsvg]][qq0group] [![QQ1Group][qq1groupsvg]][qq1group]
 
 
-[alogsvg]: https://img.shields.io/badge/ALog-v1.6.0-brightgreen.svg
+[alogsvg]: https://img.shields.io/badge/ALog-v1.6.1-brightgreen.svg
 [alog]: https://github.com/Blankj/ALog
 
 [apisvg]: https://img.shields.io/badge/API-11+-brightgreen.svg
@@ -157,7 +157,7 @@ public void initALog() {
 [alog.java]: https://github.com/Blankj/ALog/blob/master/alog/src/main/java/com/blankj/ALog.java
 [alog.demo]: https://github.com/Blankj/ALog/blob/master/app/src/main/java/com/blankj/alog/ALogActivity.java
 [jarsvg]: https://img.shields.io/badge/download-jar--4Kb-brightgreen.svg
-[jar]: https://jcenter.bintray.com/com/blankj/alog/1.6.0/alog-1.6.0-sources.jar
+[jar]: https://jcenter.bintray.com/com/blankj/alog/1.6.1/alog-1.6.1-sources.jar
 [detail]: https://raw.githubusercontent.com/Blankj/ALog/master/art/detail.png
 [args]: https://raw.githubusercontent.com/Blankj/ALog/master/art/args.png
 [long]: https://raw.githubusercontent.com/Blankj/ALog/master/art/long.png
