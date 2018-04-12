@@ -33,6 +33,7 @@ public class ALogActivity extends AppCompatActivity
     private boolean head          = true;
     private boolean file          = false;
     private boolean border        = true;
+    private boolean single        = true;
     private int     consoleFilter = ALog.V;
     private int     fileFilter    = ALog.V;
 
@@ -43,8 +44,9 @@ public class ALogActivity extends AppCompatActivity
     private static final int UPDATE_FILE           = 0x01 << 4;
     private static final int UPDATE_DIR            = 0x01 << 5;
     private static final int UPDATE_BORDER         = 0x01 << 6;
-    private static final int UPDATE_CONSOLE_FILTER = 0x01 << 7;
-    private static final int UPDATE_FILE_FILTER    = 0x01 << 8;
+    private static final int UPDATE_SINGLE         = 0x01 << 7;
+    private static final int UPDATE_CONSOLE_FILTER = 0x01 << 8;
+    private static final int UPDATE_FILE_FILTER    = 0x01 << 9;
 
     private Runnable mRunnable = new Runnable() {
         @Override
@@ -79,6 +81,7 @@ public class ALogActivity extends AppCompatActivity
         findViewById(R.id.btn_toggle_tag).setOnClickListener(this);
         findViewById(R.id.btn_toggle_head).setOnClickListener(this);
         findViewById(R.id.btn_toggle_border).setOnClickListener(this);
+        findViewById(R.id.btn_toggle_single).setOnClickListener(this);
         findViewById(R.id.btn_toggle_file).setOnClickListener(this);
         findViewById(R.id.btn_toggle_dir).setOnClickListener(this);
         findViewById(R.id.btn_toggle_conole_filter).setOnClickListener(this);
@@ -119,6 +122,9 @@ public class ALogActivity extends AppCompatActivity
                 break;
             case R.id.btn_toggle_border:
                 updateAbout(UPDATE_BORDER);
+                break;
+            case R.id.btn_toggle_single:
+                updateAbout(UPDATE_SINGLE);
                 break;
             case R.id.btn_toggle_conole_filter:
                 updateAbout(UPDATE_CONSOLE_FILTER);
@@ -219,6 +225,9 @@ public class ALogActivity extends AppCompatActivity
             case UPDATE_BORDER:
                 border = !border;
                 break;
+            case UPDATE_SINGLE:
+                single = !single;
+                break;
             case UPDATE_CONSOLE_FILTER:
                 consoleFilter = consoleFilter == ALog.V ? ALog.W : ALog.V;
                 break;
@@ -233,10 +242,12 @@ public class ALogActivity extends AppCompatActivity
                 .setLog2FileSwitch(file)
                 .setDir(dir)
                 .setBorderSwitch(border)
+                .setSingleTagSwitch(single)
                 .setConsoleFilter(consoleFilter)
                 .setFileFilter(fileFilter);
         tvAboutLog.setText(mConfig.toString());
     }
+
     private String getDir() {
         return mConfig.toString().split(System.getProperty("line.separator"))[5].substring(5);
     }
