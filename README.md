@@ -4,7 +4,7 @@
 
 ## Functions
 
-* 兼容 AS3.1 的 Logcat 完美显示日志
+* 兼容 Android Studio 3.1.0 的 Logcat 完美显示日志
 * 兼容 Kotlin
 * 可设置 Log 开启和关闭
 * 可设置是否输出到控制台（Logcat）

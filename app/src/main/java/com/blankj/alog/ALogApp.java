@@ -40,7 +40,7 @@ public class ALogApp extends Application {
                 .setDir("")// 当自定义路径为空时，写入应用的/cache/log/目录中
                 .setFilePrefix("")// 当文件前缀为空时，默认为"alog"，即写入文件为"alog-MM-dd.txt"
                 .setBorderSwitch(true)// 输出日志是否带边框开关，默认开
-                .setSingleTagSwitch(true)// 一条日志仅输出一条，默认开，为美化 AS 3.1 的 Logcat
+                .setSingleTagSwitch(true)// 一条日志仅输出一条，默认开，为美化 AS 3.1.0 的 Logcat
                 .setConsoleFilter(ALog.V)// log的控制台过滤器，和logcat过滤器同理，默认Verbose
                 .setFileFilter(ALog.V)// log文件过滤器，和logcat过滤器同理，默认Verbose
                 .setStackDeep(1);// log栈深度，默认为1

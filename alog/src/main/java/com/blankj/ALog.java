@@ -45,7 +45,7 @@ import javax.xml.transform.stream.StreamSource;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/9/21
- *     desc  : 一个精简、全面、方便的AndroidLog库
+ *     desc  : 一个精简、全面、方便的 Android Log 库
  * </pre>
  */
 public final class ALog {
