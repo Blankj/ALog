@@ -349,17 +349,21 @@ public final class ALog {
             sb.append(PLACEHOLDER).append(LINE_SEP);
             if (sConfig.mLogBorderSwitch) {
                 sb.append(TOP_BORDER).append(LINE_SEP);
-                for (String aHead : head) {
-                    sb.append(LEFT_BORDER).append(aHead).append(LINE_SEP);
+                if (head != null) {
+                    for (String aHead : head) {
+                        sb.append(LEFT_BORDER).append(aHead).append(LINE_SEP);
+                    }
+                    sb.append(MIDDLE_BORDER).append(LINE_SEP);
                 }
-                sb.append(MIDDLE_BORDER).append(LINE_SEP);
                 for (String line : msg.split(LINE_SEP)) {
                     sb.append(LEFT_BORDER).append(line).append(LINE_SEP);
                 }
                 sb.append(BOTTOM_BORDER);
             } else {
-                for (String aHead : head) {
-                    sb.append(aHead).append(LINE_SEP);
+                if (head != null) {
+                    for (String aHead : head) {
+                        sb.append(aHead).append(LINE_SEP);
+                    }
                 }
                 sb.append(msg);
             }
