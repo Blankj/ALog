@@ -203,7 +203,7 @@ public final class ALog {
         log(XML | type, tag, content);
     }
 
-    private static void log(final int type, final String tag, final Object... contents) {
+    public static void log(final int type, final String tag, final Object... contents) {
         if (!sConfig.mLogSwitch || (!sConfig.mLog2ConsoleSwitch && !sConfig.mLog2FileSwitch))
             return;
         int type_low = type & 0x0f, type_high = type & 0xf0;
@@ -223,7 +223,17 @@ public final class ALog {
             tag = sConfig.mGlobalTag;
         } else {
             final StackTraceElement[] stackTrace = new Throwable().getStackTrace();
-            StackTraceElement targetElement = stackTrace[3];
+            final int stackIndex = 3 + sConfig.mStackOffset;
+            if (stackIndex >= stackTrace.length) {
+                StackTraceElement targetElement = stackTrace[3];
+                final String fileName = getFileName(targetElement);
+                if (sConfig.mTagIsSpace && isSpace(tag)) {
+                    int index = fileName.indexOf('.');// Use proguard may not find '.'.
+                    tag = index == -1 ? fileName : fileName.substring(0, index);
+                }
+                return new TagHead(tag, null, ": ");
+            }
+            StackTraceElement targetElement = stackTrace[stackIndex];
             final String fileName = getFileName(targetElement);
             if (sConfig.mTagIsSpace && isSpace(tag)) {
                 int index = fileName.indexOf('.');// Use proguard may not find '.'.
@@ -244,12 +254,15 @@ public final class ALog {
                     return new TagHead(tag, new String[]{head}, fileHead);
                 } else {
                     final String[] consoleHead =
-                            new String[Math.min(sConfig.mStackDeep, stackTrace.length - 3)];
+                            new String[Math.min(
+                                    sConfig.mStackDeep,
+                                    stackTrace.length - stackIndex
+                            )];
                     consoleHead[0] = head;
                     int spaceLen = tName.length() + 2;
                     String space = new Formatter().format("%" + spaceLen + "s", "").toString();
                     for (int i = 1, len = consoleHead.length; i < len; ++i) {
-                        targetElement = stackTrace[i + 3];
+                        targetElement = stackTrace[i + stackIndex];
                         consoleHead[i] = new Formatter()
                                 .format("%s%s.%s(%s:%d)",
                                         space,
@@ -515,7 +528,9 @@ public final class ALog {
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
+        String time = filePath.substring(filePath.length() - 9, filePath.length() - 4);
         final String head = "************* Log Head ****************" +
+                "\nDate of Log        : " + time +
                 "\nDevice Manufacturer: " + Build.MANUFACTURER +
                 "\nDevice Model       : " + Build.MODEL +
                 "\nAndroid Version    : " + Build.VERSION.RELEASE +
@@ -591,6 +606,7 @@ public final class ALog {
         private int     mConsoleFilter     = V;     // The console's filter of log.
         private int     mFileFilter        = V;     // The file's filter of log.
         private int     mStackDeep         = 1;     // The stack's deep of log.
+        private int     mStackOffset       = 0;     // The stack's offset of log.
 
         private Config() {
             if (mDefaultDir != null) return;
@@ -681,6 +697,11 @@ public final class ALog {
             return this;
         }
 
+        public Config setStackOffset(@IntRange(from = 0) final int stackOffset) {
+            mStackOffset = stackOffset;
+            return this;
+        }
+
         @Override
         public String toString() {
             return "switch: " + mLogSwitch
@@ -694,7 +715,8 @@ public final class ALog {
                     + LINE_SEP + "singleTag: " + mSingleTagSwitch
                     + LINE_SEP + "consoleFilter: " + T[mConsoleFilter - V]
                     + LINE_SEP + "fileFilter: " + T[mFileFilter - V]
-                    + LINE_SEP + "stackDeep: " + mStackDeep;
+                    + LINE_SEP + "stackDeep: " + mStackDeep
+                    + LINE_SEP + "mStackOffset: " + mStackOffset;
         }
     }
 

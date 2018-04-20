@@ -43,7 +43,8 @@ public class ALogApp extends Application {
                 .setSingleTagSwitch(true)// 一条日志仅输出一条，默认开，为美化 AS 3.1.0 的 Logcat
                 .setConsoleFilter(ALog.V)// log的控制台过滤器，和logcat过滤器同理，默认Verbose
                 .setFileFilter(ALog.V)// log文件过滤器，和logcat过滤器同理，默认Verbose
-                .setStackDeep(1);// log栈深度，默认为1
+                .setStackDeep(1)// log 栈深度，默认为 1
+                .setStackOffset(0);// 设置栈偏移，比如二次封装的话就需要设置，默认为 0
         ALog.d(config.toString());
     }
 }
