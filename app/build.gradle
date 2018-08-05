@@ -2,7 +2,6 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion rootProject.compileSdkVersion
-    buildToolsVersion rootProject.buildToolsVersion
     defaultConfig {
         applicationId "com.blankj.alog"
         minSdkVersion rootProject.minSdkVersion
@@ -24,8 +23,8 @@ android {
 }
 
 dependencies {
-    compile deps.appcompatv7
+    implementation deps.appcompatv7
 
-//    compile 'com.blankj:alog:1.8.0'
-    compile project(':alog')
+//    compile 'com.blankj:alog:1.9.0'
+    api project(':alog')
 }

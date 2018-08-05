@@ -2,14 +2,12 @@ apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion rootProject.compileSdkVersion
-    buildToolsVersion rootProject.buildToolsVersion
 
     defaultConfig {
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
         versionCode rootProject.ext.versionCode
         versionName rootProject.ext.versionName
-
     }
 
     buildTypes {
@@ -25,7 +23,7 @@ android {
 }
 
 dependencies {
-    provided deps.annotations
+    compileOnly deps.appcompatv7
 }
 apply from: "../bintrayUpload.gradle"
 //gradle bintrayUpload

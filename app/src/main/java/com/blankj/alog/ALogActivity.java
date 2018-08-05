@@ -1,5 +1,8 @@
 package com.blankj.alog;
 
+import android.content.ComponentName;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +10,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.blankj.ALog;
+
+import java.util.ArrayList;
 
 
 /**
@@ -20,7 +25,72 @@ import com.blankj.ALog;
 public class ALogActivity extends AppCompatActivity
         implements View.OnClickListener {
 
-    private static final String TAG = "CMJ";
+    private static final String TAG                   = "CMJ";
+    private static final int    UPDATE_LOG            = 0x01;
+    private static final int    UPDATE_CONSOLE        = 0x01 << 1;
+    private static final int    UPDATE_TAG            = 0x01 << 2;
+    private static final int    UPDATE_HEAD           = 0x01 << 3;
+    private static final int    UPDATE_FILE           = 0x01 << 4;
+    private static final int    UPDATE_DIR            = 0x01 << 5;
+    private static final int    UPDATE_BORDER         = 0x01 << 6;
+    private static final int    UPDATE_SINGLE         = 0x01 << 7;
+    private static final int    UPDATE_CONSOLE_FILTER = 0x01 << 8;
+    private static final int    UPDATE_FILE_FILTER    = 0x01 << 9;
+
+    private static final String            JSON        = "{\"tools\": [{ \"name\":\"css format\" , \"site\":\"http://tools.w3cschool.cn/code/css\" },{ \"name\":\"JSON format\" , \"site\":\"http://tools.w3cschool.cn/code/JSON\" },{ \"name\":\"pwd check\" , \"site\":\"http://tools.w3cschool.cn/password/my_password_safe\" }]}";
+    private static final String            XML         = "<books><book><author>Jack Herrington</author><title>PHP Hacks</title><publisher>O'Reilly</publisher></book><book><author>Jack Herrington</author><title>Podcasting Hacks</title><publisher>O'Reilly</publisher></book></books>";
+    private static final int[]             ONE_D_ARRAY = new int[]{1, 2, 3};
+    private static final int[][]           TWO_D_ARRAY = new int[][]{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+    private static final Throwable         THROWABLE   = new NullPointerException();
+    private static final Bundle            BUNDLE      = new Bundle();
+    private static final Intent            INTENT      = new Intent();
+    private static final ArrayList<String> LIST        = new ArrayList<>();
+
+    private static final String LONG_STR;
+
+    static {
+        StringBuilder sb = new StringBuilder();
+        sb.append("len = 10400\ncontent = \"");
+        for (int i = 0; i < 800; ++i) {
+            sb.append("Hello world. ");
+        }
+        sb.append("\"");
+        LONG_STR = sb.toString();
+
+        BUNDLE.putByte("byte", (byte) -1);
+        BUNDLE.putChar("char", 'c');
+        BUNDLE.putCharArray("charArray", new char[]{'c', 'h', 'a', 'r', 'A', 'r', 'r', 'a', 'y'});
+        BUNDLE.putCharSequence("charSequence", "charSequence");
+        BUNDLE.putCharSequenceArray("charSequenceArray", new CharSequence[]{"char", "Sequence", "Array"});
+        BUNDLE.putBundle("bundle", BUNDLE);
+        BUNDLE.putBoolean("boolean", true);
+        BUNDLE.putInt("int", 1);
+        BUNDLE.putFloat("float", 1.f);
+        BUNDLE.putLong("long", 1L);
+        BUNDLE.putShort("short", (short) 1);
+
+        INTENT.setAction("ALog action");
+        INTENT.addCategory("ALog category");
+        INTENT.setData(Uri.parse("https://blankj.com"));
+        INTENT.setType(Intent.ACTION_DIAL);
+        INTENT.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        INTENT.setPackage("com.blankj.alog");
+        INTENT.setComponent(new ComponentName("com.blankj.alog", ALogActivity.class.toString()));
+        INTENT.putExtra("int", 1);
+        INTENT.putExtra("float", 1f);
+        INTENT.putExtra("char", 'c');
+        INTENT.putExtra("string", "string");
+        INTENT.putExtra("intArray", ONE_D_ARRAY);
+        ArrayList<String> list = new ArrayList<>();
+        list.add("ArrayList");
+        list.add("is");
+        list.add("serializable");
+        INTENT.putExtra("serializable", list);
+        INTENT.putExtra("bundle", BUNDLE);
+
+        LIST.add("Hello");
+        LIST.add("ALog");
+    }
 
     private TextView tvAboutLog;
 
@@ -37,17 +107,6 @@ public class ALogActivity extends AppCompatActivity
     private int     consoleFilter = ALog.V;
     private int     fileFilter    = ALog.V;
 
-    private static final int UPDATE_LOG            = 0x01;
-    private static final int UPDATE_CONSOLE        = 0x01 << 1;
-    private static final int UPDATE_TAG            = 0x01 << 2;
-    private static final int UPDATE_HEAD           = 0x01 << 3;
-    private static final int UPDATE_FILE           = 0x01 << 4;
-    private static final int UPDATE_DIR            = 0x01 << 5;
-    private static final int UPDATE_BORDER         = 0x01 << 6;
-    private static final int UPDATE_SINGLE         = 0x01 << 7;
-    private static final int UPDATE_CONSOLE_FILTER = 0x01 << 8;
-    private static final int UPDATE_FILE_FILTER    = 0x01 << 9;
-
     private Runnable mRunnable = new Runnable() {
         @Override
         public void run() {
@@ -60,22 +119,11 @@ public class ALogActivity extends AppCompatActivity
         }
     };
 
-    private static final String longStr;
-
-    static {
-        StringBuilder sb = new StringBuilder();
-        sb.append("len = 10400\ncontent = \"");
-        for (int i = 0; i < 800; ++i) {
-            sb.append("Hello world. ");
-        }
-        sb.append("\"");
-        longStr = sb.toString();
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alog);
+        tvAboutLog = findViewById(R.id.tv_about_log);
         findViewById(R.id.btn_toggle_log).setOnClickListener(this);
         findViewById(R.id.btn_toggle_console).setOnClickListener(this);
         findViewById(R.id.btn_toggle_tag).setOnClickListener(this);
@@ -95,7 +143,11 @@ public class ALogActivity extends AppCompatActivity
         findViewById(R.id.btn_log_file).setOnClickListener(this);
         findViewById(R.id.btn_log_json).setOnClickListener(this);
         findViewById(R.id.btn_log_xml).setOnClickListener(this);
-        tvAboutLog = (TextView) findViewById(R.id.tv_about_log);
+        findViewById(R.id.btn_log_array).setOnClickListener(this);
+        findViewById(R.id.btn_log_throwable).setOnClickListener(this);
+        findViewById(R.id.btn_log_bundle).setOnClickListener(this);
+        findViewById(R.id.btn_log_intent).setOnClickListener(this);
+        findViewById(R.id.btn_log_array_list).setOnClickListener(this);
         updateAbout(0);
     }
 
@@ -175,7 +227,7 @@ public class ALogActivity extends AppCompatActivity
                 ALog.aTag("customTag", "assert0", "assert1");
                 break;
             case R.id.btn_log_long:
-                ALog.d(longStr);
+                ALog.d(LONG_STR);
                 break;
             case R.id.btn_log_file:
                 for (int i = 0; i < 100; i++) {
@@ -184,14 +236,28 @@ public class ALogActivity extends AppCompatActivity
                 }
                 break;
             case R.id.btn_log_json:
-                String json = "{\"tools\": [{ \"name\":\"css format\" , \"site\":\"http://tools.w3cschool.cn/code/css\" },{ \"name\":\"json format\" , \"site\":\"http://tools.w3cschool.cn/code/json\" },{ \"name\":\"pwd check\" , \"site\":\"http://tools.w3cschool.cn/password/my_password_safe\" }]}";
-                ALog.json(json);
-                ALog.json(ALog.I, json);
+                ALog.json(JSON);
+                ALog.json(ALog.I, JSON);
                 break;
             case R.id.btn_log_xml:
-                String xml = "<books><book><author>Jack Herrington</author><title>PHP Hacks</title><publisher>O'Reilly</publisher></book><book><author>Jack Herrington</author><title>Podcasting Hacks</title><publisher>O'Reilly</publisher></book></books>";
-                ALog.xml(xml);
-                ALog.xml(ALog.I, xml);
+                ALog.xml(XML);
+                ALog.xml(ALog.I, XML);
+                break;
+            case R.id.btn_log_array:
+                ALog.e((Object) ONE_D_ARRAY);
+                ALog.e((Object) TWO_D_ARRAY);
+                break;
+            case R.id.btn_log_throwable:
+                ALog.e(THROWABLE);
+                break;
+            case R.id.btn_log_bundle:
+                ALog.e(BUNDLE);
+                break;
+            case R.id.btn_log_intent:
+                ALog.e(INTENT);
+                break;
+            case R.id.btn_log_array_list:
+                ALog.e(LIST);
                 break;
         }
     }

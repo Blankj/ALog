@@ -3,11 +3,12 @@
 buildscript {
     repositories {
         jcenter()
+        google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.1'
-        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.6'
+        classpath 'com.android.tools.build:gradle:3.1.3'
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.0'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -16,6 +17,7 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
+        google()
     }
 }
 
@@ -25,18 +27,16 @@ task clean(type: Delete) {
 
 ext {
 
-    compileSdkVersion = 25
-    buildToolsVersion = '25.0.2'
-    minSdkVersion = 11
+    compileSdkVersion = 27
+    minSdkVersion = 14
     targetSdkVersion = 19
 
-    versionCode = 1_008_000
-    versionName = '1.8.0'
+    versionCode = 001_009_000
+    versionName = '1.9.0'
 
-    supportVersion = '25.3.1'
+    supportVersion = '27.1.0'
 
     deps = [
             appcompatv7: "com.android.support:appcompat-v7:$supportVersion",
-            annotations: "com.android.support:support-annotations:$supportVersion"
     ]
 }

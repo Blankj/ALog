@@ -22,6 +22,8 @@
 * 可设置 Log 文件过滤器
 * 可设置 Log 栈深度
 * 可设置 Log 栈偏移
+* 可设置 Log 保存天数
+* 可增加 Log 格式化器，默认已支持 Array, Throwable, Bundle, Intent 格式化输出
 * 支持控制台长字符串的输出
 * 支持多参数输出
 * 支持单独写入文件
@@ -49,6 +51,8 @@ Config.setConsoleFilter  : 设置 log 控制台过滤器
 Config.setFileFilter     : 设置 log 文件过滤器
 Config.setStackDeep      : 设置 log 栈深度
 Config.setStackOffset    : 设置 log 栈偏移
+Config.setSaveDays       : 设置 log 可保留天数
+Config.addFormatter      : 新增 log 格式化器
 log                      : 自定义 tag 的 type 日志
 v                        : tag 为类名的 Verbose日志
 vTag                     : 自定义 tag 的 Verbose日志
@@ -70,7 +74,7 @@ xml                      : log 字符串之 xml
 
 ## How to use
 
-`compile 'com.blankj:alog:1.8.0'` or [![Download][jarsvg]][jar]
+`compile 'com.blankj:alog:1.9.0'` or [![Download][jarsvg]][jar]
 
 
 ## Usage
@@ -97,7 +101,15 @@ public void initALog() {
             .setConsoleFilter(ALog.V)// log 的控制台过滤器，和 logcat 过滤器同理，默认 Verbose
             .setFileFilter(ALog.V)// log 文件过滤器，和 logcat 过滤器同理，默认 Verbose
             .setStackDeep(1)// log 栈深度，默认为 1
-            .setStackOffset(0);// 设置栈偏移，比如二次封装的话就需要设置，默认为 0
+            .setStackOffset(0)// 设置栈偏移，比如二次封装的话就需要设置，默认为 0
+            .setSaveDays(3)// 设置日志可保留天数，默认为 -1 表示无限时长
+            // 新增 ArrayList 格式化器，默认已支持 Array, Throwable, Bundle, Intent 的格式化输出
+            .addFormatter(new ALog.IFormatter<ArrayList>() {
+                @Override
+                public String format(ArrayList list) {
+                    return "ALog Formatter ArrayList { " + list.toString() + " }";
+                }
+            });
     ALog.d(config.toString());
 }
 ```
@@ -149,11 +161,11 @@ public void initALog() {
 [![jianshu][jianshusvg]][jianshu] [![weibo][weibosvg]][weibo]  [![Blog][blogsvg]][blog] [![QQ0Group][qq0groupsvg]][qq0group] [![QQ1Group][qq1groupsvg]][qq1group]
 
 
-[alogsvg]: https://img.shields.io/badge/ALog-v1.8.0-brightgreen.svg
+[alogsvg]: https://img.shields.io/badge/ALog-v1.9.0-brightgreen.svg
 [alog]: https://github.com/Blankj/ALog
 
-[apisvg]: https://img.shields.io/badge/API-11+-brightgreen.svg
-[api]: https://android-arsenal.com/api?level=11
+[apisvg]: https://img.shields.io/badge/API-14+-brightgreen.svg
+[api]: https://android-arsenal.com/api?level=14
 
 [buildsvg]: https://travis-ci.org/Blankj/ALog.svg?branch=master
 [build]: https://travis-ci.org/Blankj/ALog
@@ -164,7 +176,7 @@ public void initALog() {
 [alog.java]: https://github.com/Blankj/ALog/blob/master/alog/src/main/java/com/blankj/ALog.java
 [alog.demo]: https://github.com/Blankj/ALog/blob/master/app/src/main/java/com/blankj/alog/ALogActivity.java
 [jarsvg]: https://img.shields.io/badge/download-jar--4Kb-brightgreen.svg
-[jar]: https://jcenter.bintray.com/com/blankj/alog/1.8.0/alog-1.8.0-sources.jar
+[jar]: https://jcenter.bintray.com/com/blankj/alog/1.9.0/alog-1.9.0-sources.jar
 [detail]: https://raw.githubusercontent.com/Blankj/ALog/master/art/detail.png
 [args]: https://raw.githubusercontent.com/Blankj/ALog/master/art/args.png
 [long]: https://raw.githubusercontent.com/Blankj/ALog/master/art/long.png
