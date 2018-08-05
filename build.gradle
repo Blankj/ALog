@@ -31,7 +31,7 @@ ext {
     minSdkVersion = 14
     targetSdkVersion = 19
 
-    versionCode = 1_009_000
+    versionCode = 1_009_000 
     versionName = '1.9.0'
 
     supportVersion = '27.1.0'
