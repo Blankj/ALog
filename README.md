@@ -74,7 +74,7 @@ xml                      : log 字符串之 xml
 
 ## How to use
 
-`compile 'com.blankj:alog:1.9.0'` or [![Download][jarsvg]][jar]
+`compile 'com.blankj:alog:1.9.1'` or [![Download][jarsvg]][jar]
 
 
 ## Usage
@@ -161,7 +161,7 @@ public void initALog() {
 [![jianshu][jianshusvg]][jianshu] [![weibo][weibosvg]][weibo]  [![Blog][blogsvg]][blog] [![QQ0Group][qq0groupsvg]][qq0group] [![QQ1Group][qq1groupsvg]][qq1group]
 
 
-[alogsvg]: https://img.shields.io/badge/ALog-v1.9.0-brightgreen.svg
+[alogsvg]: https://img.shields.io/badge/ALog-v1.9.1-brightgreen.svg
 [alog]: https://github.com/Blankj/ALog
 
 [apisvg]: https://img.shields.io/badge/API-14+-brightgreen.svg
@@ -176,7 +176,7 @@ public void initALog() {
 [alog.java]: https://github.com/Blankj/ALog/blob/master/alog/src/main/java/com/blankj/ALog.java
 [alog.demo]: https://github.com/Blankj/ALog/blob/master/app/src/main/java/com/blankj/alog/ALogActivity.java
 [jarsvg]: https://img.shields.io/badge/download-jar--4Kb-brightgreen.svg
-[jar]: https://jcenter.bintray.com/com/blankj/alog/1.9.0/alog-1.9.0-sources.jar
+[jar]: https://jcenter.bintray.com/com/blankj/alog/1.9.1/alog-1.9.1-sources.jar
 [detail]: https://raw.githubusercontent.com/Blankj/ALog/master/art/detail.png
 [args]: https://raw.githubusercontent.com/Blankj/ALog/master/art/args.png
 [long]: https://raw.githubusercontent.com/Blankj/ALog/master/art/long.png

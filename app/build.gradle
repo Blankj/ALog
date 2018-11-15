@@ -25,6 +25,6 @@ android {
 dependencies {
     implementation deps.appcompatv7
 
-//    compile 'com.blankj:alog:1.9.0'
+//    compile 'com.blankj:alog:1.9.1'
     api project(':alog')
 }
