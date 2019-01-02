@@ -1,4 +1,4 @@
-# ALog（已停止维护，最新版本在[LogUtils](https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/LogUtils.java)）
+# ALog（该库已停止维护，后续更新都在 [AndroidUtilCode](https://github.com/Blankj/AndroidUtilCode) 的 [LogUtils](https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/lib/src/main/java/com/blankj/utilcode/util/LogUtils.java)）
 
 [![ALog][alogsvg]][alog] [![api][apisvg]][api] [![build][buildsvg]][build] [![License][licensesvg]][license]
 
